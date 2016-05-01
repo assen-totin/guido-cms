@@ -1,0 +1,9 @@
+ABOUT GUIDO-CMS
+===============
+
+This is a small CMS buildt on top of Guido. It bundles a Guido framework release, a small API and a custom application taht serves as control panel for a web site. The web site is, ideally,also buildt using Guido (and preferrably, using the same app). 
+
+Guido is a framework to help you create simple, small, fast, self-sufficient applications for web. It is centered around the paradigm of desktop programming (layout/section/template hierarchy). See https://github.com/assen-totin/guido for details and sample app. 
+
+
+

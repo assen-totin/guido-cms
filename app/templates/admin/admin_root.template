@@ -1,0 +1,11 @@
+<div class="table-admin">
+	<div class="table-admin-row">
+		<div class="table-admin-cell-left" id="guido_admin_menu">
+		</div>
+		<div class="table-admin-cell-right" id="none">
+			<div id="guido_admin_login"></div>
+			<div id="guido_admin_dashboard"></div>
+		</div>
+	</div>
+</div>
+

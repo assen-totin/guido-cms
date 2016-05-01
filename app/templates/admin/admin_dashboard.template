@@ -1,0 +1,4 @@
+<div>
+	<p class=section_title>Logged in!</p>
+	<div id="admin_dashboard"></div>
+</div>

@@ -1,0 +1,26 @@
+{
+	"name": "guido-cms",
+	"version": "0.0.1",
+	"description": "CMS based on GUIdo framework with built-in web server and API",
+	"main": "index.js",
+	"repository": {
+		"type": "git",
+		"url": "http://github.com/assen-totin/guido-cms"
+	},
+	"keywords": [
+		"guido",
+		"cms",
+		"content",
+		"management"
+	],
+	"author": "Assen Totin",
+	"license": "GPL",
+	"bugs": {
+		"url": "http://github.com/assen-totin/guido-cms"
+	},
+	"dependencies": {
+		"mysql": "2.8.x",
+		"formidable": "1.0.x"
+	},
+	"devDependencies": {}
+}

@@ -1,0 +1,4 @@
+<div>
+	<p class=section_title>Admin Login</p>
+	<div id="admin_login_form"></div>
+</div>

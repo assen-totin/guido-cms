@@ -1,0 +1,12 @@
+<div>
+	<img class="guido.png center" src="#">
+	<p class="app_title center">Admin Panel</p>
+	<p>&nbsp;</p>
+	<p><a href=javascript:void(0) onClick="guidoLoadSection('dashboard');">Dashboard</a></p>
+	<p>&nbsp;</p>
+	<p>Change language: <br>
+		<a href=javascript:void(0) onClick="guidoTranslateDom('bg_BG');">bg_BG</a> :: 
+		<a href=javascript:void(0) onClick="guidoTranslateDom('en_US');">en_US</a> ::
+		<a href=javascript:void(0) onClick="guidoTranslateDom('fr_FR');">fr_FR</a>
+	</p>
+</div>
