@@ -1,0 +1,4 @@
+<div>
+	<p class=section_title>Recent files:</p>
+	<div id="admin_uploads"></div>
+</div>

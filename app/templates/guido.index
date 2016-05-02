@@ -1,7 +1,10 @@
 admin/admin_root.template
 admin/admin_menu.template
+admin/admin_menu_not_logged.template
 admin/admin_login.template
 admin/admin_dashboard.template
+admin/admin_uploads.template
+admin/admin_upload.template
 first/menu1.template
 first/main1.template
 first/main2.template

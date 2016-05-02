@@ -1,10 +1,14 @@
 <div class="table-admin">
 	<div class="table-admin-row">
-		<div class="table-admin-cell-left" id="guido_admin_menu">
+		<div class="table-admin-cell-left" id="none">
+			<div id="guido_admin_menu"></div>
+			<div id="guido_admin_menu_not_logged"></div>
 		</div>
 		<div class="table-admin-cell-right" id="none">
 			<div id="guido_admin_login"></div>
 			<div id="guido_admin_dashboard"></div>
+			<div id="guido_admin_upload"></div>
+			<div id="guido_admin_uploads"></div>
 		</div>
 	</div>
 </div>

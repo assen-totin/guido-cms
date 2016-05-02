@@ -61,7 +61,7 @@ input, select, textarea, checkbox, button {
 	color: inherit;
 }
 
-p {
+p, li {
 	font-family: OpenSans;
 	font-weight: normal;
 	font-size: 16px;

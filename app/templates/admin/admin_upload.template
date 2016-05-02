@@ -1,0 +1,4 @@
+<div>
+	<p class=section_title>Upload a file:</p>
+	<div id="admin_upload"></div>
+</div>

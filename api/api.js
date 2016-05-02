@@ -80,13 +80,21 @@ var init = function(params, callback) {
 			// Else, extract params using formidable (because of multipart/form-data)
 			else {
 				var form = new formidable.IncomingForm();
+				form.uploadDir = params.documentRoot + "/uploads";
 				form.parse(params.request, function(error, query, upload) {
 					if (error) {
 						callback(error);
 						return;
 					}
 
-					params.query = query;
+					var keys = Object.keys(query);
+					for (var i=0; i<keys.length; i++) {
+						if (parseJson(query[keys[i]]))
+							params.query = parseJson(query[keys[i]]);
+						else
+							params.query[keys[i]] = query[keys[i]]
+					}
+
 					params.upload = upload;
 					invoke(params, function(result2){
 						callback(result2);

@@ -1,7 +1,8 @@
 app.js
 util.js
-admin/admin_login.js
 admin/admin_menu.js
+admin/admin_login.js
+admin/admin_upload.js
 first/menu1.js
 first/main1.js
 first/main2.js

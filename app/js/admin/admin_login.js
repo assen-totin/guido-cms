@@ -89,3 +89,25 @@ function appLoadTemplate_admin_login() {
 	});
 }
 
+// Logout function, it has no template
+function appAdminLogout() {
+	var jqXHR = $.ajax({
+		type: 'GET',
+		url: appConf.api.url + '/admin_logout',
+		beforeSend: function (request) {appUtilAuthHeader(request)},
+	})
+	.always(function() {
+		// Clear user
+		//appRun.user.username = null;
+		appRun.cookies.session = null;
+
+		guidoLsSave();
+
+		// Go to next step
+		guidoLoadLayout('admin', 'login');
+	});
+//	.fail(function() {
+//		appUtilErrorHandler(jqXHR.status, _("Error submitting data."));
+//	});
+}
+

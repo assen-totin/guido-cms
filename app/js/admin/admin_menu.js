@@ -9,5 +9,10 @@ function appLoadTemplate_admin_menu() {
 	guidoRenderImages();
 }
 
+function appLoadTemplate_admin_menu_not_logged() {
+	appRun.logger.debug('Entering function appLoadTemplate_admin_menu_not_logged()...');
 
+	// Load all images (images will be sought by class; class name should match image name)
+	guidoRenderImages();
+}
 

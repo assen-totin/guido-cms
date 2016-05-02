@@ -70,12 +70,20 @@ var guidoConf = {
 			_section: 'login',
 			_root: 'admin_root',
 			login: {
-				title: 'Login',
-				templates: ['admin_root', 'admin_menu', 'admin_login']
+				title: 'Admin :: Login',
+				templates: ['admin_root', 'admin_menu_not_logged', 'admin_login']
 			},
 			dashboard: {
-				title: 'Dashboard',
+				title: 'Admin :: Dashboard',
 				templates: ['admin_root', 'admin_menu', 'admin_dashboard']
+			},
+			upload: {
+				title: 'Admin :: Upload',
+				templates: ['admin_root', 'admin_menu', 'admin_upload']
+			},
+			uploads: {
+				title: 'Admin :: Uploaded Files',
+				templates: ['admin_root', 'admin_menu', 'admin_uploads']
 			},
 		},
 
