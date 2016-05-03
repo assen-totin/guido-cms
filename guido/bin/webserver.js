@@ -30,10 +30,10 @@ var getContentType = function(dir) {
 	switch(extension) {
 		case 'txt':
 		case 'index':
-			return 'text/plain';
+			return 'text/plain; charset=utf-8';
 		case 'htm':
 		case 'html':
-			return 'text/html';
+			return 'text/html; charset=utf-8';
 		case 'css':
 			return 'text/css';
 		case 'js':
@@ -151,7 +151,7 @@ var server = http.createServer(function(request, response) {
 			}
 		}
 
-		// Send message
+		// Send message (for FD: send the file; for object: stringify; for text: send plain)
 		if (input.fd) {
 			var rs = fs.createReadStream(null, {fd: input.fd, flags: 'r'});
 			rs.on('readable', function(){
@@ -164,8 +164,14 @@ var server = http.createServer(function(request, response) {
 			});
 		}
 		else if (input.msg) {
-			response.setHeader('Content-type', 'text/plain');
-			response.write(input.msg);
+			if (typeof input.msg == 'object') {
+				response.setHeader('Content-type', 'application/json');
+				response.write(JSON.stringify(input.msg));
+			}
+			else {
+				response.setHeader('Content-type', 'text/plain; charset=utf-8');
+				response.write(input.msg);
+			}
 			response.end();
 		}
 		else {

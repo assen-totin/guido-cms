@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.1.73, for redhat-linux-gnu (x86_64)
+-- MySQL dump 10.15  Distrib 10.0.23-MariaDB, for Linux (i686)
 --
--- Host: localhost    Database: assen
+-- Host: localhost    Database: guido
 -- ------------------------------------------------------
--- Server version	5.1.73-log
+-- Server version	10.0.23-MariaDB
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -32,7 +32,7 @@ CREATE TABLE `sessions` (
   KEY `session_id` (`session_id`),
   KEY `closed_on` (`closed_on`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,40 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
+INSERT INTO `sessions` VALUES (1,1,'13e44c35-3bbf-4554-a535-10396c7e8e5d','2016-04-24 15:43:32','2016-05-04 00:02:44'),(2,1,'2ee23ff7-364f-4c77-b718-4db0b67219e4','2016-04-24 15:47:46','2016-05-04 00:02:44'),(3,1,'daf84b7f-1f0a-4377-947d-04b6d4da0dd4','2016-05-02 20:25:49','2016-05-04 00:02:44'),(4,1,'222f520b-4184-4f45-9c8a-9abcde928fb8','2016-05-03 00:48:06','2016-05-04 00:02:44'),(5,1,'ea8b209d-d7f7-474f-ac9d-f99119ad80ac','2016-05-03 00:48:55','2016-05-04 00:02:44'),(6,1,'95548541-810a-4f99-9320-47a4623a2809','2016-05-03 22:45:43','2016-05-04 00:02:44'),(7,1,'8fb661f3-81e2-459f-8c42-3e775b2954ab','2016-05-03 22:49:06','2016-05-04 00:02:44'),(8,1,'f86259b9-e60a-49dd-be6b-0b20f232b8c5','2016-05-03 22:58:44','2016-05-04 00:02:44'),(9,1,'03de2b5b-7543-4edd-ad8d-edea945ca498','2016-05-03 23:00:08','2016-05-04 00:02:44'),(10,1,'aad5bd3b-6e1a-4257-a0e1-7510bbb08cef','2016-05-03 23:05:16','2016-05-04 00:02:44'),(11,1,'114ae12c-80d8-4541-b197-b92abe958ca4','2016-05-03 23:11:36','2016-05-04 00:02:44'),(12,1,'46b2bac1-e9dc-4f47-bf02-ed1d076479a3','2016-05-03 23:32:23','2016-05-04 00:02:44'),(13,1,'a51aa496-2262-4a7a-b8b4-4436e672703c','2016-05-03 23:37:25','2016-05-04 00:02:44'),(14,1,'88257efb-980f-481e-a27c-9aaea4e9c187','2016-05-03 23:40:13','2016-05-04 00:02:44'),(15,1,'aeac30c9-f363-41af-8a83-05fefe271f20','2016-05-03 23:42:05','2016-05-04 00:02:44'),(16,1,'e11e71c6-7252-48b5-ba00-35c3d47f7ffc','2016-05-03 23:43:09','2016-05-04 00:02:44'),(17,1,'9c6aedbc-d547-42f8-8571-2a3702647a1d','2016-05-03 23:43:19','2016-05-04 00:02:44'),(18,1,'0e74071a-6113-4f0b-ba51-4618de6d7a79','2016-05-03 23:43:54','2016-05-04 00:02:44'),(19,1,'4029eeb2-3512-4cb0-8560-5bcb95663816','2016-05-03 23:51:12','2016-05-04 00:02:44'),(20,1,'681cf73e-fece-4305-ad7a-cf6f362843d9','2016-05-03 23:52:43','2016-05-04 00:02:44'),(21,1,'fd0e3e12-ef6c-479a-b2e3-5b5c00f4d4e0','2016-05-03 23:54:20','2016-05-04 00:02:44'),(22,1,'4bc50c2b-2191-42a0-bfac-78f256be116b','2016-05-04 00:02:28','2016-05-04 00:02:44'),(23,1,'86398799-354d-44d6-b64a-9f6aed8ac9f9','2016-05-04 00:02:44',NULL);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `uploads`
+--
+
+DROP TABLE IF EXISTS `uploads`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `uploads` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `path` varchar(255) DEFAULT NULL,
+  `gid` int(11) DEFAULT '0',
+  `status` enum('active','replaced','deleted') DEFAULT 'active',
+  `added_on` datetime DEFAULT NULL,
+  `added_by` int(11) DEFAULT '0',
+  `deleted_on` datetime DEFAULT NULL,
+  `deleted_by` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `gid` (`gid`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `uploads`
+--
+
+LOCK TABLES `uploads` WRITE;
+/*!40000 ALTER TABLE `uploads` DISABLE KEYS */;
+/*!40000 ALTER TABLE `uploads` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -101,6 +134,7 @@ LOCK TABLES `versions` WRITE;
 INSERT INTO `versions` VALUES (1,'2016-04-24 12:00:00');
 /*!40000 ALTER TABLE `versions` ENABLE KEYS */;
 UNLOCK TABLES;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
@@ -110,4 +144,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-04-18 22:41:20
+-- Dump completed on 2016-05-04  0:03:56

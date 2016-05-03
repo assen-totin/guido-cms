@@ -57,7 +57,7 @@
 
 /* Form elements inherit from their wrapping span - see app.css */
 
-.form-admin {
+.form-admin, .tbl-admin {
 	font-family: OpenSans;
 	font-size: 14px;
 }

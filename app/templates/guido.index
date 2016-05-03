@@ -5,11 +5,8 @@ admin/admin_login.template
 admin/admin_dashboard.template
 admin/admin_uploads.template
 admin/admin_upload.template
-first/menu1.template
-first/main1.template
-first/main2.template
-first/root1.template
-second/root2.template
-second/menu2.template
-second/main3.template
-second/main4.template
+site/menu1.template
+site/main1.template
+site/main2.template
+site/root1.template
+

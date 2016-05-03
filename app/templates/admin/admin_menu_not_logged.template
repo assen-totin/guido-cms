@@ -2,6 +2,9 @@
 	<img class="guido.png center" src="#">
 	<p class="app_title center">Admin Panel</p>
 	<p>&nbsp;</p>
+	<p><a href=javascript:void(0); onClick=guidoLoadSection('login');>Log In</a></p>
+	<p><a href=javascript:void(0); onClick=guidoLoadLayout(guidoConf.layout,guidoConf.section);>Exit</a></p>
+	<p>&nbsp;</p>
 	<p>Change language: <br>
 		<a href=javascript:void(0) onClick="guidoTranslateDom('bg_BG');">bg_BG</a> :: 
 		<a href=javascript:void(0) onClick="guidoTranslateDom('ru_RU');">ru_RU</a> :: 

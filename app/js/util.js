@@ -56,7 +56,7 @@ function appUtilErrorHandler(code, message) {
 
 	if (code == 401) {
 		alert(_("You are not logged in."));
-		appLogout();
+		appAdminLogout();
 		guidoLoadLayout('dashboard', 'login');
 	}
 	else

@@ -67,10 +67,10 @@ function appMain() {
 
 /**
  * Per-layout loading method. 
- * Will be called whenever layout named 'first' is loaded.
+ * Will be called whenever layout named 'site' is loaded.
  */
-function appLoadLayout_first() {
-	appRun.logger.debug('Entering function appLoadLayout_first()...');
+function appLoadLayout_site() {
+	appRun.logger.debug('Entering function appLoadLayout_site()...');
 	// Add your code below
 
 /*
@@ -87,28 +87,10 @@ function appLoadLayout_first() {
 
 /**
  * Per-layout unloading method. 
- * Will be called whenever layout named 'first' is unloaded.
+ * Will be called whenever layout named 'site' is unloaded.
  */
-function appUnloadLayout_first() {
-	appRun.logger.debug('Entering function appUnloadLayout_first()...');
-	// Add your code below
-}
-
-/**
- * Per-layout loading method. 
- * Will be called whenever layout named 'first' is loaded.
- */
-function appLoadLayout_second() {
-	appRun.logger.debug('Entering function appLoadLayout_second()...');
-	// Add your code below
-}
-
-/**
- * Per-layout unloading method. 
- * Will be called whenever layout named 'second' is unloaded.
- */
-function appUnloadLayout_second() {
-	appRun.logger.debug('Entering function appUnloadLayout_second()...');
+function appUnloadLayout_site() {
+	appRun.logger.debug('Entering function appUnloadLayout_site()...');
 	// Add your code below
 }
 
@@ -153,45 +135,36 @@ function appUnloadSection_example2() {
 	// Add your code below
 }
 
-
 /**
- * Per-section loading method. 
- * Will be called whenever section named 'example3' is loaded.
+ * Per-layout loading method. 
+ * Will be called whenever layout named 'site' is loaded.
  */
-function appLoadSection_example3() {
-	appRun.logger.debug('Entering function appLoadSection_example3()...');
+function appLoadLayout_admin() {
+	appRun.logger.debug('Entering function appLoadLayout_admin()...');
 	// Add your code below
+
+/*
+	// Example how to load the runtime object from Local Storge conditionally: 
+	// the object will be loaded only if the version of the current app is the same as the version that was saved.
+	// If the saved appRun is restored and it has a session, the user will be considered logged-in.
+	// If the saved appRun is not restored, the current appRun object will not have a session and you can ask the user to log in. 
+	// Thus you can ensure that the user always has required objects and properties once the app version changes.
+	// You probably want this code in every layout loading method. 
+	guidoLsLoad(checkVersion);
+*/
+
+	guidoLsLoad();
 }
 
 
 /**
- * Per-section unloading method. 
- * Will be called whenever section named 'example3' is unloaded.
+ * Per-layout unloading method. 
+ * Will be called whenever layout named 'site' is unloaded.
  */
-function appUnloadSection_example3() {
-	appRun.logger.debug('Entering function appUnloadSection_example3()...');
+function appUnloadLayout_admin() {
+	appRun.logger.debug('Entering function appUnloadLayout_site()...');
 	// Add your code below
 }
-
-/**
- * Per-section loading method. 
- * Will be called whenever section named 'example4' is loaded.
- */
-function appLoadSection_example4() {
-	appRun.logger.debug('Entering function appLoadSection_example4()...');
-	// Add your code below
-}
-
-
-/**
- * Per-section unloading method. 
- * Will be called whenever section named 'example4' is unloaded.
- */
-function appUnloadSection_example4() {
-	appRun.logger.debug('Entering function appUnloadSection_example4()...');
-	// Add your code below
-}
-
 
 // Per-template loading and unloading functions are in separate files, in /js directory
 

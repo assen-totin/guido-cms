@@ -54,7 +54,7 @@ var guidoConf = {
 	locale: 'en_US',
 
 	// Default layout to load and default section (see below for layouts)
-	layout: 'first',
+	layout: 'site',
 	section: 'example1',
 	
 	// List of all layouts, sections and templates.
@@ -86,8 +86,7 @@ var guidoConf = {
 				templates: ['admin_root', 'admin_menu', 'admin_uploads']
 			},
 		},
-
-		first: {
+		site: {
 			_section: 'example1',
 			_root: 'root1',
 			example1: {
@@ -99,18 +98,6 @@ var guidoConf = {
 				templates: ['root1', 'menu1', 'main2']
 			},
 		},
-		second: {
-			_section: 'example3',
-			_root: 'root2',
-			example3: {
-				title: 'Example Third',
-				templates: ['root2', 'menu2', 'main3']
-			},
-			example4: {
-				title: 'Example Forth',
-				templates: ['root2', 'menu2', 'main4']
-			}
-		}
 	}
 };
 

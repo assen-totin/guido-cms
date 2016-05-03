@@ -1,44 +1,73 @@
 // Upload a file
 var fs = require('fs');
 
-var sanitise = function(path, type) {
-	var ret = path;
-
-	switch(type) {
-		case 'name':
-			ret = ret.replace('/', '_');
-		case 'dir':
-			ret = ret.replace('..', '__');
-	}
-
-	return ret;
-};
-
 var init = function(params, callback) {
 	var sqlClient = params.clients.sqlClient;
 	var logger = params.clients.logger;
 
 	var userId;
 
-	// Validate method
-	if (params.method != "POST") {
-		callback({code:405, msg: "Method not accepted: " + params.method});
-		return;
+	switch(params.method) {
+		case 'GET':
+			// If an ID is given, get the file and all its versions; else, get all files
+			var q;
+			if (params.query && params.query.id)
+				q = "SELECT * FROM uploads WHERE id=" + sqlClient.escape(params.query.id);
+			else
+				q = "SELECT * FROM uploads WHERE status='active' ORDER BY name";
+
+			sqlClient.query(q, function(error, sqlRows) {
+				if (error) {
+					callback({code:500, msg:"Unable to query database", error:q + "\n" + error});
+					return;
+				}
+
+				var ret = (sqlRows) ? sqlRows : [];
+				callback({code:200, msg:ret});
+			});
+			return;
+
+		case 'DELETE':
+			// Delete a file with all its versions; update DB
+			var q = "SELECT path FROM uploads WHERE gid=" + sqlClient.escape(params.query.id);
+			sqlClient.query(q, function(error, sqlRows) {
+				if (error) {
+					callback({code:500, msg:"Unable to query database", error:q + "\n" + error});
+					return;
+				}
+
+				// Delete files
+				for (var i=0; i<sqlRows.length; i++)
+					fs.unlinkSync(sqlRows[i]);
+
+				// Update DB
+				q = "UPDATE uploads SET status='deleted', deleted_on=NOW(), deleted_by=" + params.user + " WHERE gid=" + sqlClient.escape(params.query.id);
+				sqlClient.query(q, function(error, sqlRows) {
+					if (error) {
+						callback({code:500, msg:"Unable to query database", error:q + "\n" + error});
+						return;
+					}
+
+					callback({code:200, msg:"OK"});
+				});
+			});
+			return;
+
+		default:
+			callback({code:405, msg: "Method not accepted: " + params.method});
+			return;
 	}
 
-	// If a file was not uploaded, return error
-	var pathSource = params.upload.file.path;
-	if (! pathSource) {
-		callback({code:400, msg: "No file uploaded"});
-		return;
-	}
+
+
+
 
 	// If we are uploading a new version, append a timestamp to old file, update DB and reuse the path for the new file
 	if (params.query && params.query.id) {
 		var uploadId = sqlClient.escape(params.query.id);
 
 		// Get the original path to reuse
-		var q = "SELECT path, name, gid FROM uploads WHERE id=" + uploadId;
+		var q = "SELECT path, name FROM uploads WHERE id=" + uploadId;
 		sqlClient.query(q, function(error, sqlRows) {
 			if (error) {
 				callback({code:500, msg:"Unable to query database", error:q + "\n" + error});
@@ -49,8 +78,6 @@ var init = function(params, callback) {
 				callback({code:404, msg:"Unable to find existing file with ID " + uploadId});
 				return;
 			}
-
-			var gid = sqlRows[0].gid;
 
 			// Append timestamp to old file name
 			var d = new Date();
@@ -77,8 +104,6 @@ var init = function(params, callback) {
 						return;
 					}
 
-					var gidNew = sqlRows2[0].id;
-
 					// Update the previous record: status, path, ID
 					q = "UPDATE uploads SET status='replaced', path='" + pathReplaced + "' WHERE id=" + uploadId;
 					sqlClient.query(q, function(error, sqlRows2) {
@@ -86,9 +111,6 @@ var init = function(params, callback) {
 							callback({code:500, msg:"Unable to query database", error:q + "\n" + error});
 							return;
 						}
-
-						// Update GID in all pevious records with the 
-						q = "UPDATE uploads SET gid=" + gidNew + " WHERE gid=" + gid;
 
 						callback({code:200, msg:"OK"});
 						return;
@@ -152,27 +174,7 @@ var init = function(params, callback) {
 				return;
 			}
 
-			// Get the ID of the newly uploaded file
-			q = "SELECT id FROM  uploads WHERE path=" + sqlClient.escape(pathDest) + " ORDER BY id DESC LIMIT 1";
-			sqlClient.query(q, function(error, sqlRows2) {
-				if (error) {
-					callback({code:500, msg:"Unable to query database", error:q + "\n" + error});
-					return;
-				}
-
-				var gidNew = sqlRows2[0].id;
-
-				// Update the previous record: status, path, ID
-				q = "UPDATE uploads SET gid=" + gidNew + " WHERE id=" + gidNew;
-				sqlClient.query(q, function(error, sqlRows3) {
-					if (error) {
-						callback({code:500, msg:"Unable to query database", error:q + "\n" + error});
-						return;
-					}
-
-					callback({code:200, msg:"OK"});
-				});
-			});
+			callback({code:200, msg:"OK"});
 		});
 	}
 }

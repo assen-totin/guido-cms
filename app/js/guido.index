@@ -3,9 +3,7 @@ util.js
 admin/admin_menu.js
 admin/admin_login.js
 admin/admin_upload.js
-first/menu1.js
-first/main1.js
-first/main2.js
-second/menu2.js
-second/main3.js
-second/main4.js
+admin/admin_uploads.js
+site/menu1.js
+site/main1.js
+site/main2.js
