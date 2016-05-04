@@ -22,7 +22,12 @@ var parseJson = function(input) {
 	var parts;
 	try {
 		parts = JSON.parse(input);
-		return parts;
+
+		// Simple types (string, int) parse without failures, so make sure we have an object
+		if (parts === Object(parts))
+			return parts;
+		else
+			return null;
 	}
 	catch (e) {
 		return null;
@@ -87,12 +92,15 @@ var init = function(params, callback) {
 						return;
 					}
 
+					if (! params.query)
+						params.query = {};
+
 					var keys = Object.keys(query);
 					for (var i=0; i<keys.length; i++) {
 						if (parseJson(query[keys[i]]))
 							params.query = parseJson(query[keys[i]]);
 						else
-							params.query[keys[i]] = query[keys[i]]
+							params.query[keys[i]] = query[keys[i]];
 					}
 
 					params.upload = upload;

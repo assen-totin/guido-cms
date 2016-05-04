@@ -58,18 +58,20 @@ function appLoadTemplate_admin_uploads() {
 			};
 			row.cells.push(cellName);
 
+			// Convert date to something display-friendly
+			var d = new Date(data[i].added_on);
 			var cellLastUpdate = {
-				content: data[i].added_on,
+				content: d.toLocaleString(),
 			};
 			row.cells.push(cellLastUpdate);
 
 			var cellNewVersion = {
-				content: "<a href=javascript:void(0); onClick=alert('" + data[i].path + "');><img src='#' class=new_version.png title='" + _("Upload new version") + "'></a>",
+				content: "<a href=javascript:void(0); onClick=appAdminUploadForm(" + data[i].id + ");><img src='#' class=new_version.png title='" + _("Upload new version") + "'></a>",
 			};
 			row.cells.push(cellNewVersion);
 
 			var cellDelete = {
-				content: "<a href=javascript:void(0); onClick=alert('" + data[i].path + "');><img src='#' class=del.png title='" + _("Delete") + "'></a>",
+				content: "<a href=javascript:void(0); onClick=appAdminUploadDelete(" + data[i].id + ");><img src='#' class=del.png title='" + _("Delete") + "'></a>",
 			};
 			row.cells.push(cellDelete);
 
@@ -90,6 +92,32 @@ function appLoadTemplate_admin_uploads() {
 	.fail(function() {
 		// Call the error handler
 		appUtilErrorHandler(jqXHR.status, _("Error getting the list of uploaded files!"));
+	});
+}
+
+function appAdminUploadForm(id) {
+	appRun.kvs.upload_id = id;
+	guidoLoadSection('upload');
+}
+
+function appAdminUploadDelete(id) {
+	// Verify we really want to delete the image
+	var r = confirm(_("Really delete the file?"));
+	if (! r)
+		return;
+
+	// Call the API to delete the file
+	var jqXHR = $.ajax({
+		type: 'DELETE',
+		url: appConf.api.url + '/admin_uploads',
+		data: {q: JSON.stringify({id: id})},
+		beforeSend: function (request) {appUtilAuthHeader(request);},
+	})
+	.done(function(data) {
+		appLoadTemplate_admin_uploads();
+ 	})
+	.fail(function(jqXHR) {
+		appUtilErrorHandler(jqXHR.status, "Error deleting file.");
 	});
 }
 

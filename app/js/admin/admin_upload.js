@@ -39,6 +39,10 @@ function appLoadTemplate_admin_upload() {
 			return;
 		}
 
+		// If we're uploading a new version of existing file, add its ID
+		if (appRun.kvs.upload_id)
+			result.id = parseInt(appRun.kvs.upload_id, 10);
+
 		// Populate a FormData object (used to send AJAX with multipart/form-data)
 		var formData = new FormData();
 		var keys = Object.keys(result);
@@ -66,11 +70,14 @@ function appLoadTemplate_admin_upload() {
 			appUtilSpinnerHide();
 
 			// Go to next section
-			guidoLoadSection('dashboard');
+			guidoLoadSection('uploads');
 	 	})
 		.fail(function() {
 			// Call the error handler
 			appUtilErrorHandler(jqXHR.status, _("Error uploading file!"));
+		})
+		.always(function(){
+			appRun.kvs.upload_id = null;
 		});
 	});
 }
