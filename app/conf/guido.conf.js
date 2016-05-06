@@ -85,6 +85,10 @@ var guidoConf = {
 				title: 'Admin :: Uploaded Files',
 				templates: ['admin_root', 'admin_menu', 'admin_uploads']
 			},
+			navigation: {
+				title: 'Admin :: Navigation',
+				templates: ['admin_root', 'admin_menu', 'admin_navigation']
+			},
 		},
 		site: {
 			_section: 'example1',

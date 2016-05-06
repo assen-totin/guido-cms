@@ -9,14 +9,14 @@ function appLoadTemplate_admin_uploads() {
 	var paramsTable = {
 		div: 'admin_uploads',
 		css: 'tbl-admin',
-		sort: 2,
+		sort: 1,
+		direction: 'desc',
 		sortControls: {			// We use the built-in font for sort control. See README for other options.
 			sortAsc: 'guido',
 			sortDesc: 'guido',
 			sortedAsc: 'guido',
 			sortedDesc: 'guido',
 		},
-		direction: 'desc',
 		page: 25,
 		pageControls: {
 			position: ['bottom'],

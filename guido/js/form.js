@@ -214,7 +214,7 @@ guidoForm.prototype.readValues = function () {
 				// The borwser always return the value as string. 
 				// Check if it is an integer and convert it so (unless we explictily want a string for this field)
 				// Exception: FILE
-				if (value && (field.type != 'FILE')) {
+				if ((value !== null) && (field.type != 'FILE')) {
 					if (parseFloat(value) == value) {
 						if (! field.getAsString)
 							value = parseFloat(value);
@@ -662,7 +662,7 @@ guidoForm.prototype.getFormData = function() {
 	var fields = Object.keys(this.fields);
 	for (var i=0; i<fields.length; i++) {
 		var field = this.fields[fields[i]];
-		if (field.value) {
+		if (field.value !== null) {
 			if (data.hasOwnProperty(field.attributes.name)) {
 				if (data[field.attributes.name].constructor == Array)
 					data[field.attributes.name].push(field.value);

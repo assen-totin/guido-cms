@@ -27,7 +27,7 @@ function appLoadTemplate_admin_upload() {
 				cssField: 'form-admin-div',
 				cssInput: 'form-admin-button',
 				order: 90,
-				extra: {text:'Next', name: _('Submit'), action: 'submit'}
+				extra: {text:_('Next'), name: 'submit', action: 'submit'}
 			}
 		}
 	};

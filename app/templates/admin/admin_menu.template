@@ -5,6 +5,8 @@
 
 	<p><a href=javascript:void(0) onClick="guidoLoadSection('dashboard');">Dashboard</a></p>
 
+	<p><a href=javascript:void(0) onClick="guidoLoadSection('navigation');">Navigation</a></p>
+
 	<p>Files</p>
 	<ul>
 	<li><a href=javascript:void(0) onClick="guidoLoadSection('uploads');">List</a></li>
