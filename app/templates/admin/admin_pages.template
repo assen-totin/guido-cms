@@ -1,0 +1,7 @@
+<div>
+	<p class=section_title>Pages</p>
+	<p><b>Add new page:</b></p>
+	<div id="admin_pages_form"></div>
+	<p><b>Existing pages:</b></p>
+	<div id="admin_pages_table"></div>
+</div>

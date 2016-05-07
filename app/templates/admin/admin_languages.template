@@ -1,0 +1,7 @@
+<div>
+	<p class=section_title>Languages</p>
+	<p><b>Add a language to the site:</b></p>
+	<div id="admin_languages_form"></div>
+	<p><b>Existing languages:</b></p>
+	<div id="admin_languages_table"></div>
+</div>

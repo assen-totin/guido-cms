@@ -1,0 +1,145 @@
+af_ZA	Afrikaans	Afrikaans
+ak_GH	Akan	Akan
+am_ET	Amharic	አማርኛ
+ar_SA	Arabic	العربية‎
+asa_TZ	Asu	Kipare
+as_IN	Assamese	অসমীয়া
+az_AZ	Azerbaijani	Azərbaycanca
+be_BY	Belarusian	Беларуская
+bem_ZM	Bemba	Ichibemba
+bez_TZ	Bena	Hibena
+bg_BG	Bulgarian	Български
+bm_ML	Bambara	Bamanakan
+bn_BD	Bengali	বাংলা
+bo_CN	Tibetan	པོད་སྐད
+bs_BA	Bosnian	Bosanski
+br_FR	Breton	Breton
+ca_ES	Catalan	Català
+cgg_UG	Chiga	Rukiga
+chr_US	Cherokee	ᏣᎳᎩ
+cs_CZ	Czech	čeština
+cy_GB	Welsh	Cymraeg
+da_DK	Danish	Dansk
+dav_KE	Taita	Kitaita
+de_DE	German	Deutsch
+ebu_KE	Embu	Kĩembu
+ee_GH	Ewe	Eʋegbe
+el_GR	Greek	Ελληνικά
+en_GB	English (UK)	English (UK)
+en_US	English (US)	English (US)
+eo_EO	Esperanto	Esperanto
+es_ES	Spanish	Español
+et_EE	Estonian	Eesti
+eu_ES	Basque	Euskara
+fa_IR	Persian	‎فارسی‎
+ff_SN	Fulah	Pulaar
+fi_FI	Finnish	Suomi
+fil_PH	Filipino	Filipino
+fo_FO	Faroese	Føroyskt
+fr_FR	French	Français
+ga_IE	Irish	Gaeilge
+gl_ES	Galician	Galego
+gu_IN	Gujarati	ગુજરાતી
+guz_KE	Gusii	Ekegusii
+gv_GB	Manx	Gaelg
+ha_GH	Hausa	Hausa
+haw_US	Hawaiian	ʻōlelo Hawaiʻi
+he_IL	Hebrew	‎עברית
+hi_IN	Hindi	हिन्दी
+hr_HR	Croatian	Hrvatski
+hu_HU	Hungarian	Magyar
+hy_AM	Armenian	Հայերէն
+id_ID	Indonesian	Bahasa Indonesia
+ig_NG	Igbo	Igbo
+ii_CN	Sichuan Yi	ꆈꌠꉙ
+is_IS	Icelandic	íslenska
+it_IT	Italian	Italiano
+ja_JP	Japanese	日本語
+jmc_TZ	Machame	Kimachame
+kab_DZ	Kabyle	Taqbaylit
+ka_GE	Georgian	ქართული
+kam_KE	Kamba	Kikamba
+kde_TZ	Makonde	Chimakonde
+kea_CV	Kabuverdianu	Kabuverdianu
+khq_ML	Koyra Chiini	Koyra ciini
+ki_KE	Kikuyu	Gikuyu
+kk_KZ	Kazakh	Қазақ
+kl_GL	Kalaallisut	Kalaallisut
+kln_KE	Kalenjin	Kalenjin
+km_KH	Khmer	ភាសាខ្មែរ
+kn_IN	Kannada	ಕನ್ನಡ
+kok_IN	Konkani	कोंकणी
+ko_KR	Korean	한국어
+ksb_TZ	Shambala	Kishambaa
+ky_KG	Kyrgyz	Кыргыз
+kw_GB	Cornish	kernewek
+lag_TZ	Langi	Kɨlaangi
+lg_UG	Ganda	Luganda
+lo_LA	Lao	ລາວ
+lt_LT	Lithuanian	Lietuvių
+luo_KE	Luo	Dholuo
+luy_KE	Luyia	Luluhia
+lv_LV	Latvian	Latviešu
+mas_TZ	Masai	Maa
+mer_KE	Meru	Kĩmĩrũ
+mfe_MU	Morisyen	kreol morisien
+mg_MG	Malagasy	Malagasy
+mk_MK	Macedonian	Македонски
+mn_MN	Mongolian	Монгол
+ml_IN	Malayalam	മലയാളം
+mr_IN	Marathi	मराठी
+ms_MY	Malay	Bahasa Melayu
+mt_MT	Maltese	Malti
+my_MM	Burmese	ဗမာ
+naq_NA	Nama	Khoekhoegowab
+nb_NO	Norwegian Bokmål	Norsk bokmål
+nd_ZW	North Ndebele	isiNdebele
+ne_NP	Nepali	नेपाली
+nl_NL	Dutch	Nederlands
+nn_NO	Norwegian Nynorsk	Nynorsk
+nyn_UG	Nyankole	Runyankore
+om_ET	Oromo	Oromoo
+or_IN	Oriya	ଓଡ଼ିଆ
+pa_PK	Punjabi	ਪੰਜਾਬੀ 
+pl_PL	Polish	Polski
+ps_AF	Pashto	‎پښتو
+pt_PT	Portuguese	Português
+rm_CH	Romansh	Rumantsch
+rof_TZ	Rombo	Kihorombo
+ro_RO	Romanian	Română
+ru_RU	Russian	Русский
+rw_RW	Kinyarwanda	Kinyarwanda
+rwk_TZ	Rwa	Kiruwa
+saq_KE	Samburu	Kisampur
+seh_MZ	Sena	Sena
+ses_ML	Koyraboro Senni	Koyraboro Senni
+sg_CF	Sango	Sängö
+shi_MA	Tachelhit	ⵜⴰⵎⴰⵣⵉⵖⵜ
+si_LK	Sinhala	සිංහල
+sk_SK	Slovak	Slovenčina	
+sl_SI	Slovenian	Slovenščina
+sn_ZW	Shona	chiShona
+so_SO	Somali	Soomaali
+sq_AL	Albanian	Shqipe
+sr_RS	Serbian	Српски
+sv_SE	Swedish	Яvenska
+sw_KE	Swahili	Kenya
+ta_LK	Tamil	தமிழ்
+te_IN	Telugu	తెలుగు
+teo_UG	Teso	Kiteso
+th_TH	Thai	ไทย
+ti_ET	Tigrinya	ትግርኛ
+to_TO	Tonga	lea fakatonga
+tr_TR	Turkish	Türkçe
+tzm_MA	Tamazight	Tamaziɣt
+ug_CN	Uyghur	Uyghur
+uk_UA	Ukrainian	Українська
+ur_PK	Urdu	‎اردو
+uz_UZ	Uzbek	O'zbekcha
+vi_VN	Vietnamese	Tiếng Việt
+vun_TZ	Vunjo	Kyivunjo
+xog_UG	Soga	Olusoga
+yo_NG	Yoruba	Èdè Yorùbá
+zh_CN	Chinese (Simplified)	中文
+zh_TW	Chinese (Traditional)	繁體中文
+zu_ZA	Zulu	isiZulu

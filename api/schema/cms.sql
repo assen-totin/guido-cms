@@ -16,13 +16,42 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `navigation`
+-- Table structure for table `languages`
 --
 
-DROP TABLE IF EXISTS `navigation`;
+DROP TABLE IF EXISTS `languages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `navigation` (
+CREATE TABLE `languages` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `name_en` varchar(255) DEFAULT NULL,
+  `code` varchar(255) DEFAULT NULL,
+  `status` enum('active','inactive') DEFAULT 'inactive',
+  PRIMARY KEY (`id`),
+  KEY `status` (`status`),
+  KEY `code` (`code`)
+) ENGINE=InnoDB AUTO_INCREMENT=256 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `languages`
+--
+
+LOCK TABLES `languages` WRITE;
+/*!40000 ALTER TABLE `languages` DISABLE KEYS */;
+INSERT INTO `languages` VALUES (1,'Afrikaans','Afrikaans','af_ZA','inactive'),(2,'Akan','Akan','ak_GH','inactive'),(3,'አማርኛ','Amharic','am_ET','inactive'),(4,'العربية‎','Arabic','ar_SA','inactive'),(5,'Kipare','Asu','asa_TZ','inactive'),(6,'অসমীয়া','Assamese','as_IN','inactive'),(7,'Azərbaycanca','Azerbaijani','az_AZ','inactive'),(8,'Беларуская','Belarusian','be_BY','inactive'),(9,'Ichibemba','Bemba','bem_ZM','inactive'),(10,'Hibena','Bena','bez_TZ','inactive'),(11,'Български','Bulgarian','bg_BG','inactive'),(12,'Bamanakan','Bambara','bm_ML','inactive'),(13,'বাংলা','Bengali','bn_BD','inactive'),(14,'པོད་སྐད','Tibetan','bo_CN','inactive'),(15,'Bosanski','Bosnian','bs_BA','inactive'),(16,'Breton','Breton','br_FR','inactive'),(17,'Català','Catalan','ca_ES','inactive'),(18,'Rukiga','Chiga','cgg_UG','inactive'),(19,'ᏣᎳᎩ','Cherokee','chr_US','inactive'),(20,'čeština','Czech','cs_CZ','inactive'),(21,'Cymraeg','Welsh','cy_GB','inactive'),(22,'Dansk','Danish','da_DK','inactive'),(23,'Kitaita','Taita','dav_KE','inactive'),(24,'Deutsch','German','de_DE','inactive'),(25,'Kĩembu','Embu','ebu_KE','inactive'),(26,'Eʋegbe','Ewe','ee_GH','inactive'),(27,'Ελληνικά','Greek','el_GR','inactive'),(28,'English (UK)','English (UK)','en_GB','inactive'),(29,'English (US)','English (US)','en_US','active'),(30,'Esperanto','Esperanto','eo_EO','inactive'),(31,'Español','Spanish','es_ES','inactive'),(32,'Eesti','Estonian','et_EE','inactive'),(33,'Euskara','Basque','eu_ES','inactive'),(34,'‎فارسی‎','Persian','fa_IR','inactive'),(35,'Pulaar','Fulah','ff_SN','inactive'),(36,'Suomi','Finnish','fi_FI','inactive'),(37,'Filipino','Filipino','fil_PH','inactive'),(38,'Føroyskt','Faroese','fo_FO','inactive'),(39,'Français','French','fr_FR','inactive'),(40,'Gaeilge','Irish','ga_IE','inactive'),(41,'Galego','Galician','gl_ES','inactive'),(42,'ગુજરાતી','Gujarati','gu_IN','inactive'),(43,'Ekegusii','Gusii','guz_KE','inactive'),(44,'Gaelg','Manx','gv_GB','inactive'),(45,'Hausa','Hausa','ha_GH','inactive'),(46,'ʻōlelo Hawaiʻi','Hawaiian','haw_US','inactive'),(47,'‎עברית','Hebrew','he_IL','inactive'),(48,'हिन्दी','Hindi','hi_IN','inactive'),(49,'Hrvatski','Croatian','hr_HR','inactive'),(50,'Magyar','Hungarian','hu_HU','inactive'),(51,'Հայերէն','Armenian','hy_AM','inactive'),(52,'Bahasa Indonesia','Indonesian','id_ID','inactive'),(53,'Igbo','Igbo','ig_NG','inactive'),(54,'ꆈꌠꉙ','Sichuan Yi','ii_CN','inactive'),(55,'íslenska','Icelandic','is_IS','inactive'),(56,'Italiano','Italian','it_IT','inactive'),(57,'日本語','Japanese','ja_JP','inactive'),(58,'Kimachame','Machame','jmc_TZ','inactive'),(59,'Taqbaylit','Kabyle','kab_DZ','inactive'),(60,'ქართული','Georgian','ka_GE','inactive'),(61,'Kikamba','Kamba','kam_KE','inactive'),(62,'Chimakonde','Makonde','kde_TZ','inactive'),(63,'Kabuverdianu','Kabuverdianu','kea_CV','inactive'),(64,'Koyra ciini','Koyra Chiini','khq_ML','inactive'),(65,'Gikuyu','Kikuyu','ki_KE','inactive'),(66,'Қазақ','Kazakh','kk_KZ','inactive'),(67,'Kalaallisut','Kalaallisut','kl_GL','inactive'),(68,'Kalenjin','Kalenjin','kln_KE','inactive'),(69,'ភាសាខ្មែរ','Khmer','km_KH','inactive'),(70,'ಕನ್ನಡ','Kannada','kn_IN','inactive'),(71,'कोंकणी','Konkani','kok_IN','inactive'),(72,'한국어','Korean','ko_KR','inactive'),(73,'Kishambaa','Shambala','ksb_TZ','inactive'),(74,'Кыргыз','Kyrgyz','ky_KG','inactive'),(75,'kernewek','Cornish','kw_GB','inactive'),(76,'Kɨlaangi','Langi','lag_TZ','inactive'),(77,'Luganda','Ganda','lg_UG','inactive'),(78,'ລາວ','Lao','lo_LA','inactive'),(79,'Lietuvių','Lithuanian','lt_LT','inactive'),(80,'Dholuo','Luo','luo_KE','inactive'),(81,'Luluhia','Luyia','luy_KE','inactive'),(82,'Latviešu','Latvian','lv_LV','inactive'),(83,'Maa','Masai','mas_TZ','inactive'),(84,'Kĩmĩrũ','Meru','mer_KE','inactive'),(85,'kreol morisien','Morisyen','mfe_MU','inactive'),(86,'Malagasy','Malagasy','mg_MG','inactive'),(87,'Македонски','Macedonian','mk_MK','inactive'),(88,'Монгол','Mongolian','mn_MN','inactive'),(89,'മലയാളം','Malayalam','ml_IN','inactive'),(90,'मराठी','Marathi','mr_IN','inactive'),(91,'Bahasa Melayu','Malay','ms_MY','inactive'),(92,'Malti','Maltese','mt_MT','inactive'),(93,'ဗမာ','Burmese','my_MM','inactive'),(94,'Khoekhoegowab','Nama','naq_NA','inactive'),(95,'Norsk bokmål','Norwegian Bokmål','nb_NO','inactive'),(96,'isiNdebele','North Ndebele','nd_ZW','inactive'),(97,'नेपाली','Nepali','ne_NP','inactive'),(98,'Nederlands','Dutch','nl_NL','inactive'),(99,'Nynorsk','Norwegian Nynorsk','nn_NO','inactive'),(100,'Runyankore','Nyankole','nyn_UG','inactive'),(101,'Oromoo','Oromo','om_ET','inactive'),(102,'ଓଡ଼ିଆ','Oriya','or_IN','inactive'),(103,'ਪੰਜਾਬੀ ','Punjabi','pa_PK','inactive'),(104,'Polski','Polish','pl_PL','inactive'),(105,'‎پښتو','Pashto','ps_AF','inactive'),(106,'Português','Portuguese','pt_PT','inactive'),(107,'Rumantsch','Romansh','rm_CH','inactive'),(108,'Kihorombo','Rombo','rof_TZ','inactive'),(109,'Română','Romanian','ro_RO','inactive'),(110,'Русский','Russian','ru_RU','inactive'),(111,'Kinyarwanda','Kinyarwanda','rw_RW','inactive'),(112,'Kiruwa','Rwa','rwk_TZ','inactive'),(113,'Kisampur','Samburu','saq_KE','inactive'),(114,'Sena','Sena','seh_MZ','inactive'),(115,'Koyraboro Senni','Koyraboro Senni','ses_ML','inactive'),(116,'Sängö','Sango','sg_CF','inactive'),(117,'ⵜⴰⵎⴰⵣⵉⵖⵜ','Tachelhit','shi_MA','inactive'),(118,'සිංහල','Sinhala','si_LK','inactive'),(119,'Slovenčina','Slovak','sk_SK','inactive'),(120,'Slovenščina','Slovenian','sl_SI','inactive'),(121,'chiShona','Shona','sn_ZW','inactive'),(122,'Soomaali','Somali','so_SO','inactive'),(123,'Shqipe','Albanian','sq_AL','inactive'),(124,'Српски','Serbian','sr_RS','inactive'),(125,'Яvenska','Swedish','sv_SE','inactive'),(126,'Kenya','Swahili','sw_KE','inactive'),(127,'தமிழ்','Tamil','ta_LK','inactive'),(128,'తెలుగు','Telugu','te_IN','inactive'),(129,'Kiteso','Teso','teo_UG','inactive'),(130,'ไทย','Thai','th_TH','inactive'),(131,'ትግርኛ','Tigrinya','ti_ET','inactive'),(132,'lea fakatonga','Tonga','to_TO','inactive'),(133,'Türkçe','Turkish','tr_TR','inactive'),(134,'Tamaziɣt','Tamazight','tzm_MA','inactive'),(135,'Uyghur','Uyghur','ug_CN','inactive'),(136,'Українська','Ukrainian','uk_UA','inactive'),(137,'‎اردو','Urdu','ur_PK','inactive'),(138,'O\'zbekcha','Uzbek','uz_UZ','inactive'),(139,'Tiếng Việt','Vietnamese','vi_VN','inactive'),(140,'Kyivunjo','Vunjo','vun_TZ','inactive'),(141,'Olusoga','Soga','xog_UG','inactive'),(142,'Èdè Yorùbá','Yoruba','yo_NG','inactive'),(143,'中文','Chinese (Simplified)','zh_CN','inactive'),(144,'繁體中文','Chinese (Traditional)','zh_TW','inactive'),(145,'isiZulu','Zulu','zu_ZA','inactive');
+/*!40000 ALTER TABLE `languages` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `pages`
+--
+
+DROP TABLE IF EXISTS `pages`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent` int(11) DEFAULT '0',
   `position` int(11) DEFAULT '0',
@@ -34,17 +63,17 @@ CREATE TABLE `navigation` (
   `deleted_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `combo1` (`parent`,`position`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `navigation`
+-- Dumping data for table `pages`
 --
 
-LOCK TABLES `navigation` WRITE;
-/*!40000 ALTER TABLE `navigation` DISABLE KEYS */;
-INSERT INTO `navigation` VALUES (1,0,0,'Top Level','active',NULL,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `navigation` ENABLE KEYS */;
+LOCK TABLES `pages` WRITE;
+/*!40000 ALTER TABLE `pages` DISABLE KEYS */;
+INSERT INTO `pages` VALUES (1,0,0,'Top Level','active',NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `pages` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -64,7 +93,7 @@ CREATE TABLE `sessions` (
   KEY `session_id` (`session_id`),
   KEY `closed_on` (`closed_on`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +102,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES (1,1,'13e44c35-3bbf-4554-a535-10396c7e8e5d','2016-04-24 15:43:32','2016-05-06 18:38:05'),(2,1,'2ee23ff7-364f-4c77-b718-4db0b67219e4','2016-04-24 15:47:46','2016-05-06 18:38:05'),(3,1,'daf84b7f-1f0a-4377-947d-04b6d4da0dd4','2016-05-02 20:25:49','2016-05-06 18:38:05'),(4,1,'222f520b-4184-4f45-9c8a-9abcde928fb8','2016-05-03 00:48:06','2016-05-06 18:38:05'),(5,1,'ea8b209d-d7f7-474f-ac9d-f99119ad80ac','2016-05-03 00:48:55','2016-05-06 18:38:05'),(6,1,'95548541-810a-4f99-9320-47a4623a2809','2016-05-03 22:45:43','2016-05-06 18:38:05'),(7,1,'8fb661f3-81e2-459f-8c42-3e775b2954ab','2016-05-03 22:49:06','2016-05-06 18:38:05'),(8,1,'f86259b9-e60a-49dd-be6b-0b20f232b8c5','2016-05-03 22:58:44','2016-05-06 18:38:05'),(9,1,'03de2b5b-7543-4edd-ad8d-edea945ca498','2016-05-03 23:00:08','2016-05-06 18:38:05'),(10,1,'aad5bd3b-6e1a-4257-a0e1-7510bbb08cef','2016-05-03 23:05:16','2016-05-06 18:38:05'),(11,1,'114ae12c-80d8-4541-b197-b92abe958ca4','2016-05-03 23:11:36','2016-05-06 18:38:05'),(12,1,'46b2bac1-e9dc-4f47-bf02-ed1d076479a3','2016-05-03 23:32:23','2016-05-06 18:38:05'),(13,1,'a51aa496-2262-4a7a-b8b4-4436e672703c','2016-05-03 23:37:25','2016-05-06 18:38:05'),(14,1,'88257efb-980f-481e-a27c-9aaea4e9c187','2016-05-03 23:40:13','2016-05-06 18:38:05'),(15,1,'aeac30c9-f363-41af-8a83-05fefe271f20','2016-05-03 23:42:05','2016-05-06 18:38:05'),(16,1,'e11e71c6-7252-48b5-ba00-35c3d47f7ffc','2016-05-03 23:43:09','2016-05-06 18:38:05'),(17,1,'9c6aedbc-d547-42f8-8571-2a3702647a1d','2016-05-03 23:43:19','2016-05-06 18:38:05'),(18,1,'0e74071a-6113-4f0b-ba51-4618de6d7a79','2016-05-03 23:43:54','2016-05-06 18:38:05'),(19,1,'4029eeb2-3512-4cb0-8560-5bcb95663816','2016-05-03 23:51:12','2016-05-06 18:38:05'),(20,1,'681cf73e-fece-4305-ad7a-cf6f362843d9','2016-05-03 23:52:43','2016-05-06 18:38:05'),(21,1,'fd0e3e12-ef6c-479a-b2e3-5b5c00f4d4e0','2016-05-03 23:54:20','2016-05-06 18:38:05'),(22,1,'4bc50c2b-2191-42a0-bfac-78f256be116b','2016-05-04 00:02:28','2016-05-06 18:38:05'),(23,1,'86398799-354d-44d6-b64a-9f6aed8ac9f9','2016-05-04 00:02:44','2016-05-06 18:38:05'),(24,1,'7b6efefc-372b-4e0b-beb9-11e2b7a7471f','2016-05-04 21:31:39','2016-05-06 18:38:05'),(25,1,'ffba8105-afea-46c8-979d-f9ae53a274d3','2016-05-05 22:40:50','2016-05-06 18:38:05'),(26,1,'e7baeb5b-a0e9-4a3d-ae96-b42f2f07b8fb','2016-05-06 11:55:33','2016-05-06 18:38:05'),(27,1,'838065fa-51bd-4bb3-a99b-d55fe022672d','2016-05-06 18:38:05',NULL);
+INSERT INTO `sessions` VALUES (1,1,'cad84d47-b737-499c-80fd-b4af3054a716','2016-05-07 21:26:37',NULL);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,4 +205,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-07  0:54:31
+-- Dump completed on 2016-05-07 22:15:27

@@ -1,4 +1,4 @@
 <div>
-	<p class=section_title>Logged in!</p>
-	<div id="admin_dashboard"></div>
+	<p class=section_title>Welcome to the Admin Panel!</p>
+	<p>Use the menu on the left to navigate.</p>
 </div>

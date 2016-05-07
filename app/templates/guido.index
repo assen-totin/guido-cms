@@ -5,7 +5,8 @@ admin/admin_login.template
 admin/admin_dashboard.template
 admin/admin_uploads.template
 admin/admin_upload.template
-admin/admin_navigation.template
+admin/admin_pages.template
+admin/admin_languages.template
 site/menu1.template
 site/main1.template
 site/main2.template

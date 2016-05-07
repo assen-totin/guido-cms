@@ -1,7 +1,0 @@
-<div>
-	<p class=section_title>Navigation</p>
-	<p><b>Create new navigation entry:</b></p>
-	<div id="admin_navigation_form"></div>
-	<p><b>Existing navigation entries:</b></p>
-	<div id="admin_navigation_table"></div>
-</div>

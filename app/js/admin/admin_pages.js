@@ -2,12 +2,12 @@
  * Per-template loading method. 
  * Will be called whenever the template named 'main1' is attached to a parent. 
  */
-function appLoadTemplate_admin_navigation() {
-	appRun.logger.debug('Entering function appLoadTemplate_admin_navigation()...');
+function appLoadTemplate_admin_pages() {
+	appRun.logger.debug('Entering function appLoadTemplate_admin_pages()...');
 
 	// Form definition
 	var paramsForm = {
-		div: 'admin_navigation_form',
+		div: 'admin_pages_form',
 		css: 'form-admin',
 		fields: {
 			name: {
@@ -15,11 +15,11 @@ function appLoadTemplate_admin_navigation() {
 				order: 10,
 				cssField: 'form-admin-div',
 				cssInput: 'form-admin-input',
-				attributes: {type: 'text', placeholder: _("Entry name"), name:'name'},
+				attributes: {type: 'text', placeholder: _("Page name"), name:'name'},
 				validator: {
 					enabled: true,
 					validate: 'notempty',
-					error: _('Entry name cannot be empty.')
+					error: _('Page name cannot be empty.')
 				}
 			},
 			parent: {
@@ -45,7 +45,7 @@ function appLoadTemplate_admin_navigation() {
 
 	// Table definition (only header, without rows added)
 	var paramsTable = {
-		div: 'admin_navigation_table',
+		div: 'admin_pages_table',
 		css: 'tbl-admin',
 		sortControls: {			// We use the built-in font for sort control. See README for other options.
 			sortAsc: 'guido',
@@ -73,7 +73,7 @@ function appLoadTemplate_admin_navigation() {
 
 	var jqXHR = $.ajax({
 		type: 'GET',
-		url: appConf.api.url + '/admin_navigation',
+		url: appConf.api.url + '/admin_pages',
 		beforeSend: function (request) {
 			appUtilAuthHeader(request);
 			appUtilSpinnerShow();
@@ -83,7 +83,7 @@ function appLoadTemplate_admin_navigation() {
 		// Hide the spinner
 		appUtilSpinnerHide();
 
-		var data = appAdminNavigationSort(dataIn);
+		var data = appAdminPagesSort(dataIn);
 
 		// Populate the table, row by row
 		for (var i=0; i<data.length; i++) {
@@ -110,18 +110,18 @@ function appLoadTemplate_admin_navigation() {
 
 			// Up arrow
 			var cellUp = {
-				content: (data[i].showUp) ? "<a href=javascript:void(0); onClick=appAdminNavigationMove(" + data[i].id + ",'up');><img src='#' class=up.png title='" + _("Move up") + "'></a>" :""
+				content: (data[i].showUp) ? "<a href=javascript:void(0); onClick=appAdminPagesMove(" + data[i].id + ",'up');><img src='#' class=up.png title='" + _("Move up") + "'></a>" :""
 			};
 			row.cells.push(cellUp);
 
 			// Down arrow
 			var cellDown = {
-				content: (data[i].showDown) ? "<a href=javascript:void(0); onClick=appAdminNavigationMove(" + data[i].id + ",'down');><img src='#' class=down.png title='" + _("Move down") + "'></a>" : ""
+				content: (data[i].showDown) ? "<a href=javascript:void(0); onClick=appAdminPagesMove(" + data[i].id + ",'down');><img src='#' class=down.png title='" + _("Move down") + "'></a>" : ""
 			};
 			row.cells.push(cellDown);
 
 			var cellDelete = {
-				content: "<a href=javascript:void(0); onClick=appAdminNavigationDelete(" + data[i].id + ");><img src='#' class=del.png title='" + _("Delete") + "'></a>",
+				content: "<a href=javascript:void(0); onClick=appAdminPagesDelete(" + data[i].id + ");><img src='#' class=del.png title='" + _("Delete") + "'></a>",
 			};
 			row.cells.push(cellDelete);
 
@@ -138,7 +138,7 @@ function appLoadTemplate_admin_navigation() {
 
 			var jqXHR = $.ajax({
 				type: 'POST',
-				url: appConf.api.url + '/admin_navigation',
+				url: appConf.api.url + '/admin_pages',
 				data: {q: JSON.stringify(result)},
 				beforeSend: function (request) {
 					appUtilAuthHeader(request);
@@ -150,77 +150,74 @@ function appLoadTemplate_admin_navigation() {
 				appUtilSpinnerHide();
 
 				// Reload page
-				appLoadTemplate_admin_navigation();
-
-				// Go to next section
-				//guidoLoadSection('uploads');
+				appLoadTemplate_admin_pages();
 		 	})
 			.fail(function() {
 				// Call the error handler
-				appUtilErrorHandler(jqXHR.status, _("Error creating navigation item!"));
+				appUtilErrorHandler(jqXHR.status, _("Error creating page!"));
 			})
 		});
 
-		// Show table with navigation or display text no entries were found
+		// Show table with pages or display text no entries were found
 		if (data.length > 1)
 			var t = new guidoTable(paramsTable, function(){
 				// Load all images (images will be sought by class; class name should match image name)
 				guidoRenderImages();
 			});
 		else {
-			var el = document.getElementById("admin_navigation_table");
+			var el = document.getElementById("admin_pages_table");
 			if (el)
-				el.innerHTML = "<p>" + _("No navigation entries found. Use the form above to create one.") + "</p>";
+				el.innerHTML = "<p>" + _("No pages found. Use the form above to create one.") + "</p>";
 		}
 	})
 	.fail(function() {
 		// Call the error handler
-		appUtilErrorHandler(jqXHR.status, _("Error getting the navigation!"));
+		appUtilErrorHandler(jqXHR.status, _("Error getting pages!"));
 	});
 }
 
-function appAdminNavigationDelete(id) {
+function appAdminPagesDelete(id) {
 	// Verify we really want to delete the image
-	var r = confirm(_("Really delete this entry?"));
+	var r = confirm(_("Really delete this page?"));
 	if (! r)
 		return;
 
 	// Call the API to delete the file
 	var jqXHR = $.ajax({
 		type: 'DELETE',
-		url: appConf.api.url + '/admin_navigation',
+		url: appConf.api.url + '/admin_pages',
 		data: {q: JSON.stringify({id: id})},
 		beforeSend: function (request) {appUtilAuthHeader(request);},
 	})
 	.done(function(data) {
 		// Reload page
-		appLoadTemplate_admin_navigation();
+		appLoadTemplate_admin_pages();
  	})
 	.fail(function(jqXHR) {
-		appUtilErrorHandler(jqXHR.status, "Error deleting entry.");
+		appUtilErrorHandler(jqXHR.status, "Error deleting page.");
 	});
 }
 
 
-function appAdminNavigationMove(id, direction) {
+function appAdminPagesMove(id, direction) {
 	// Call the API to delete the file
 	var jqXHR = $.ajax({
 		type: 'PUT',
-		url: appConf.api.url + '/admin_navigation',
+		url: appConf.api.url + '/admin_pages',
 		data: {q: JSON.stringify({id: id, move: direction})},
 		beforeSend: function (request) {appUtilAuthHeader(request);},
 	})
 	.done(function(data) {
 		// Reload page
-		appLoadTemplate_admin_navigation();
+		appLoadTemplate_admin_pages();
  	})
 	.fail(function(jqXHR) {
-		appUtilErrorHandler(jqXHR.status, "Error moving entry.");
+		appUtilErrorHandler(jqXHR.status, "Error moving page.");
 	});
 }
 
 // Recursively find child nodes
-function appAdminNavigationFindNext(dataIn, parent, name) {
+function appAdminPagesFindNext(dataIn, parent, name) {
 	var ret = [];
 
 	for (var i=0; i<dataIn.length; i++) {
@@ -228,7 +225,7 @@ function appAdminNavigationFindNext(dataIn, parent, name) {
 			dataIn[i].name = name + ' -> ' + dataIn[i].name;
 			ret.push(dataIn[i]);
 
-			var res = appAdminNavigationFindNext(dataIn, dataIn[i].id, dataIn[i].name);
+			var res = appAdminPagesFindNext(dataIn, dataIn[i].id, dataIn[i].name);
 			for (var j=0; j<res.length; j++)
 				ret.push(res[j]);
 		}
@@ -239,7 +236,7 @@ function appAdminNavigationFindNext(dataIn, parent, name) {
 
 
 // Sort the entries in a hierarchial way
-function appAdminNavigationSort(dataIn) {
+function appAdminPagesSort(dataIn) {
 	var ret = [];
 	// Index zero is the top-level (invisible in rendering)
 	ret[0] = dataIn[0];
@@ -256,7 +253,7 @@ function appAdminNavigationSort(dataIn) {
 		if (dataIn[i].parent == 1) {
 			//dataIn[i].name = '/ ' + dataIn[i].name;
 			ret.push(dataIn[i]);
-			var res = appAdminNavigationFindNext(dataIn, dataIn[i].id, dataIn[i].name);
+			var res = appAdminPagesFindNext(dataIn, dataIn[i].id, dataIn[i].name);
 			for (var j=0; j<res.length; j++)
 				ret.push(res[j]);
 		}

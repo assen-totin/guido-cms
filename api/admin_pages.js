@@ -8,8 +8,8 @@ var init = function(params, callback) {
 
 	switch(params.method) {
 		case 'GET':
-			// Get the navigation entries
-			var q = "SELECT * FROM navigation WHERE status='active' ORDER BY parent, position";
+			// Get the pages entries
+			var q = "SELECT * FROM pages WHERE status='active' ORDER BY parent, position";
 
 			sqlClient.query(q, function(error, sqlRows) {
 				if (error) {
@@ -24,7 +24,7 @@ var init = function(params, callback) {
 
 		case 'POST':
 			// We always put the new entry last, so we need to get a position for it
-			var q = "SELECT MAX(position) AS pos FROM navigation WHERE parent=" + sqlClient.escape(params.query.parent);
+			var q = "SELECT MAX(position) AS pos FROM pages WHERE parent=" + sqlClient.escape(params.query.parent);
 			sqlClient.query(q, function(error, sqlRows) {
 				if (error) {
 					callback({code:500, msg:"Unable to query database", error:q + "\n" + error});
@@ -35,8 +35,8 @@ var init = function(params, callback) {
 				if (sqlRows.length)
 					position = sqlRows[0].pos + 1;
 
-				// Create new navigation entry
-				q = "INSERT INTO navigation (parent, position, name, added_on, added_by) VALUES (" + sqlClient.escape(params.query.parent) + ", " + position + ", " + sqlClient.escape(params.query.name) + ", NOW(), " + params.user + ")";
+				// Create new pages entry
+				q = "INSERT INTO pages (parent, position, name, added_on, added_by) VALUES (" + sqlClient.escape(params.query.parent) + ", " + position + ", " + sqlClient.escape(params.query.name) + ", NOW(), " + params.user + ")";
 				sqlClient.query(q, function(error) {
 					if (error) {
 						callback({code:500, msg:"Unable to query database", error:q + "\n" + error});
@@ -58,7 +58,7 @@ var init = function(params, callback) {
 
 			// If up/down action is given, carry it on
 			if (params.query.move) {
-				var q = "SELECT position, parent FROM navigation WHERE id=" + sqlClient.escape(params.query.id);
+				var q = "SELECT position, parent FROM pages WHERE id=" + sqlClient.escape(params.query.id);
 				sqlClient.query(q, function(error, sqlRows) {
 					if (error) {
 						callback({code:500, msg:"Unable to query database", error:q + "\n" + error});
@@ -69,14 +69,14 @@ var init = function(params, callback) {
 					var parent = sqlRows[0].parent;
 					var p = (params.query.move == 'up') ? "-1" : "+1";
 
-					q = "UPDATE navigation SET position=" + position +" WHERE parent=" + parent + " AND position=" + position + p;
+					q = "UPDATE pages SET position=" + position +" WHERE parent=" + parent + " AND position=" + position + p;
 					sqlClient.query(q, function(error, sqlRows) {
 						if (error) {
 							callback({code:500, msg:"Unable to query database", error:q + "\n" + error});
 							return;
 						}
 
-						q = "UPDATE navigation SET position=position" + p +" WHERE id="+ sqlClient.escape(params.query.id);
+						q = "UPDATE pages SET position=position" + p +" WHERE id="+ sqlClient.escape(params.query.id);
 						sqlClient.query(q, function(error, sqlRows) {
 							if (error) {
 								callback({code:500, msg:"Unable to query database", error:q + "\n" + error});
@@ -104,7 +104,7 @@ var init = function(params, callback) {
 				upd += "name=" + sqlClient.escape(params.query.name);
 			}
 
-			var q = "UPDATE navigation SET " + upd + " WHERE id=" + sqlClient.escape(params.query.id);
+			var q = "UPDATE pages SET " + upd + " WHERE id=" + sqlClient.escape(params.query.id);
 			sqlClient.query(q, function(error) {
 				if (error) {
 					callback({code:500, msg:"Unable to query database", error:q + "\n" + error});
@@ -115,8 +115,8 @@ var init = function(params, callback) {
 			return;
 
 		case 'DELETE':
-			// Delete a navigation entry
-			var q = "UPDATE navigation SET status='deleted', deleted_on=NOW(), deleted_by=" + params.user + " WHERE id=" + sqlClient.escape(params.query.id);
+			// Delete a pages entry
+			var q = "UPDATE pages SET status='deleted', deleted_on=NOW(), deleted_by=" + params.user + " WHERE id=" + sqlClient.escape(params.query.id);
 			sqlClient.query(q, function(error) {
 				if (error) {
 					callback({code:500, msg:"Unable to query database", error:q + "\n" + error});
