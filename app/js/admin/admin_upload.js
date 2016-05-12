@@ -40,8 +40,8 @@ function appLoadTemplate_admin_upload() {
 		}
 
 		// If we're uploading a new version of existing file, add its ID
-		if (appRun.kvs.upload_id)
-			result.id = parseInt(appRun.kvs.upload_id, 10);
+		if (appRun.kvs.admin.upload_id)
+			result.id = parseInt(appRun.kvs.admin.upload_id, 10);
 
 		// Populate a FormData object (used to send AJAX with multipart/form-data)
 		var formData = new FormData();
@@ -77,7 +77,7 @@ function appLoadTemplate_admin_upload() {
 			appUtilErrorHandler(jqXHR.status, _("Error uploading file!"));
 		})
 		.always(function(){
-			appRun.kvs.upload_id = null;
+			appRun.kvs.admin.upload_id = null;
 		});
 	});
 }

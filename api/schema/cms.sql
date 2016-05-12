@@ -31,7 +31,7 @@ CREATE TABLE `languages` (
   PRIMARY KEY (`id`),
   KEY `status` (`status`),
   KEY `code` (`code`)
-) ENGINE=InnoDB AUTO_INCREMENT=256 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=146 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -77,6 +77,37 @@ INSERT INTO `pages` VALUES (1,0,0,'Top Level','active',NULL,NULL,NULL,NULL);
 UNLOCK TABLES;
 
 --
+-- Table structure for table `pages_lang`
+--
+
+DROP TABLE IF EXISTS `pages_lang`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `pages_lang` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `page_id` int(11) DEFAULT NULL,
+  `language_id` int(11) DEFAULT NULL,
+  `title` varchar(255) DEFAULT NULL,
+  `content` text,
+  `added_on` datetime DEFAULT NULL,
+  `added_by` int(11) DEFAULT NULL,
+  `updated_on` datetime DEFAULT NULL,
+  `updated_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `combo1` (`page_id`,`language_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `pages_lang`
+--
+
+LOCK TABLES `pages_lang` WRITE;
+/*!40000 ALTER TABLE `pages_lang` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pages_lang` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `sessions`
 --
 
@@ -93,7 +124,7 @@ CREATE TABLE `sessions` (
   KEY `session_id` (`session_id`),
   KEY `closed_on` (`closed_on`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -102,7 +133,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES (1,1,'cad84d47-b737-499c-80fd-b4af3054a716','2016-05-07 21:26:37',NULL);
+INSERT INTO `sessions` VALUES (1,1,'cad84d47-b737-499c-80fd-b4af3054a716','2016-05-07 21:26:37','2016-05-12 23:15:20'),(2,1,'9ad54265-7338-4c4f-bb94-bcfbaa509e72','2016-05-12 23:10:46','2016-05-12 23:15:20'),(3,1,'921b7600-201d-4692-80d2-d2af36f768a5','2016-05-12 23:15:20',NULL);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -205,4 +236,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-07 22:15:27
+-- Dump completed on 2016-05-13  0:49:23

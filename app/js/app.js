@@ -35,6 +35,7 @@ appRun.cookies = {};
 
 // Create a key-value store
 appRun.kvs = {};
+appRun.kvs.admin = {};
 
 // Make API location code as independent as possible (see /app/conf/app.conf for the config entry)
 var tmpProtocol = appConf.api.protocol || document.location.protocol;

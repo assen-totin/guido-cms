@@ -75,7 +75,12 @@ var init = function(params, callback) {
 
 			// For GET, extract params directly
 			if (params.method == 'GET') {
-				params.query = parseJson(params.urlParts.query);
+				var keys = Object.keys(params.urlParts.query);
+				for (var i=0; i<keys.length; i++) {
+					var pj = parseJson(params.urlParts.query[keys[i]]);
+					params.query = (pj) ? pj : query[keys[i]];
+				}
+
 				invoke(params, function(result2){
 					callback(result2);
 				});
@@ -97,10 +102,8 @@ var init = function(params, callback) {
 
 					var keys = Object.keys(query);
 					for (var i=0; i<keys.length; i++) {
-						if (parseJson(query[keys[i]]))
-							params.query = parseJson(query[keys[i]]);
-						else
-							params.query[keys[i]] = query[keys[i]];
+						var pj = parseJson(query[keys[i]]);
+						params.query = (pj) ? pj : query[keys[i]];
 					}
 
 					params.upload = upload;

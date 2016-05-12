@@ -85,13 +85,17 @@ var guidoConf = {
 				title: 'Admin :: Uploaded Files',
 				templates: ['admin_root', 'admin_menu', 'admin_uploads']
 			},
-			pages: {
-				title: 'Admin :: Pages',
-				templates: ['admin_root', 'admin_menu', 'admin_pages']
-			},
 			languages: {
 				title: 'Admin :: Languages',
 				templates: ['admin_root', 'admin_menu', 'admin_languages']
+			},
+			page: {
+				title: 'Admin :: Pages',
+				templates: ['admin_root', 'admin_menu', 'admin_page']
+			},
+			pages: {
+				title: 'Admin :: Page',
+				templates: ['admin_root', 'admin_menu', 'admin_pages']
 			},
 		},
 		site: {

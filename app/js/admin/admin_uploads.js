@@ -96,7 +96,7 @@ function appLoadTemplate_admin_uploads() {
 }
 
 function appAdminUploadForm(id) {
-	appRun.kvs.upload_id = id;
+	appRun.kvs.admin.upload_id = id;
 	guidoLoadSection('upload');
 }
 

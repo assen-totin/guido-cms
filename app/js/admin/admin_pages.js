@@ -63,9 +63,10 @@ function appLoadTemplate_admin_pages() {
 			css: 'th',
 			cells: [
 				{sort: true, content: _('Name')},
-				{content: _(' ')},
-				{content: _(' ')},
-				{content: _(' ')},
+				{content: ' '},
+				{content: ' '},
+				{content: ' '},
+				{content: ' '},
 			]
 		},
 		rows: []
@@ -120,8 +121,13 @@ function appLoadTemplate_admin_pages() {
 			};
 			row.cells.push(cellDown);
 
+			var cellContent = {
+				content: "<a href=javascript:void(0); onClick=appAdminPagesEdit(" + data[i].id + ");><img src='#' class=content.png title='" + _("Delete") + "'></a>",
+			};
+			row.cells.push(cellContent);
+
 			var cellDelete = {
-				content: "<a href=javascript:void(0); onClick=appAdminPagesDelete(" + data[i].id + ");><img src='#' class=del.png title='" + _("Delete") + "'></a>",
+				content: "<a href=javascript:void(0); onClick=appAdminPagesDelete(" + data[i].id + ");><img src='#' class=del.png title='" + _("Edit") + "'></a>",
 			};
 			row.cells.push(cellDelete);
 
@@ -174,6 +180,12 @@ function appLoadTemplate_admin_pages() {
 		// Call the error handler
 		appUtilErrorHandler(jqXHR.status, _("Error getting pages!"));
 	});
+}
+
+// Switch to page editing keeping the ID of the page
+function appAdminPagesEdit(id) {
+	appRun.kvs.admin.page = id;
+	guidoLoadSection('page');
 }
 
 function appAdminPagesDelete(id) {
