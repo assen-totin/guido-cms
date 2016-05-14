@@ -1,18 +1,6 @@
 // Upload a file
 var fs = require('fs');
-
-var sanitise = function(path, type) {
-	var ret = path;
-
-	switch(type) {
-		case 'name':
-			ret = ret.replace('/', '_');
-		case 'dir':
-			ret = ret.replace('..', '__');
-	}
-
-	return ret;
-};
+var utilsAdmin = require('./utils');
 
 var init = function(params, callback) {
 	var sqlClient = params.clients.sqlClient;
@@ -110,7 +98,7 @@ var init = function(params, callback) {
 		var pathDest;
 		var stat;
 		if (params.query && params.query.path) {
-			pathDest = params.documentRoot + '/uploads' + sanitise(params.query.path, 'dir');
+			pathDest = params.documentRoot + '/' + utilsAdmin.sanitise(params.query.path, 'dir');
 		
 			try {
 				stat = fs.lstatSync(pathDest);
@@ -145,41 +133,49 @@ var init = function(params, callback) {
 		// Append slash if missing and move the file
 		if (pathDest.slice(-1) != '/')
 			pathDest += '/';
-		pathDest += sanitise(params.upload.file.name, 'name');
+		pathDest += utilsAdmin.sanitise(params.upload.file.name, 'name');
 
 		// Move the file
 		fs.renameSync(pathSource, pathDest);
 
-		// Register upload
-		var q = "INSERT INTO uploads (name, path, added_on, added_by) VALUES (" + sqlClient.escape(sanitise(params.upload.file.name, 'name')) + ", " + sqlClient.escape(pathDest) + ", NOW(), " + params.user + ")";
-		sqlClient.query(q, function(error) {
-			if (error) {
-				callback({code:500, msg:"Unable to query database", error:q + "\n" + error});
-				return;
-			}
+		// Register upload as gallery image
+		if (params.query.gallery) {
+			//FIXME: read gallery data, resize image and register it
+			console.log("Gallery upload!");
+		}
 
-			// Get the ID of the newly uploaded file
-			q = "SELECT id FROM  uploads WHERE path=" + sqlClient.escape(pathDest) + " ORDER BY id DESC LIMIT 1";
-			sqlClient.query(q, function(error, sqlRows) {
+		// Register upload as regular upload
+		else {
+			var q = "INSERT INTO uploads (name, path, added_on, added_by) VALUES (" + sqlClient.escape(utilsAdmin.sanitise(params.upload.file.name, 'name')) + ", " + sqlClient.escape(pathDest) + ", NOW(), " + params.user + ")";
+			sqlClient.query(q, function(error) {
 				if (error) {
 					callback({code:500, msg:"Unable to query database", error:q + "\n" + error});
 					return;
 				}
 
-				var gidNew = sqlRows[0].id;
-
-				// Update the previous record: status, path, ID
-				q = "UPDATE uploads SET gid=" + gidNew + " WHERE id=" + gidNew;
-				sqlClient.query(q, function(error) {
+				// Get the ID of the newly uploaded file
+				q = "SELECT id FROM  uploads WHERE path=" + sqlClient.escape(pathDest) + " ORDER BY id DESC LIMIT 1";
+				sqlClient.query(q, function(error, sqlRows) {
 					if (error) {
 						callback({code:500, msg:"Unable to query database", error:q + "\n" + error});
 						return;
 					}
 
-					callback({code:200, msg:"OK"});
+					var gidNew = sqlRows[0].id;
+
+					// Update the previous record: status, path, ID
+					q = "UPDATE uploads SET gid=" + gidNew + " WHERE id=" + gidNew;
+					sqlClient.query(q, function(error) {
+						if (error) {
+							callback({code:500, msg:"Unable to query database", error:q + "\n" + error});
+							return;
+						}
+
+						callback({code:200, msg:"OK"});
+					});
 				});
 			});
-		});
+		}
 	}
 }
 

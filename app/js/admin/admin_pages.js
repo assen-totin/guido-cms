@@ -6,132 +6,88 @@ function appLoadTemplate_admin_pages() {
 	appRun.logger.debug('Entering function appLoadTemplate_admin_pages()...');
 
 	// Form definition
+	appRun.kvs.admin.pages_form = {};
+	appRun.kvs.admin.pages_form.formId = 'F' + appUtilRandomUuid();
+	appRun.kvs.admin.pages_form.fieldLanguage = 'f' + appUtilRandomUuid();
+	appRun.kvs.admin.pages_form.fieldTitle = 'f' + appUtilRandomUuid();
+	appRun.kvs.admin.pages_form.fieldContent = 'f' + appUtilRandomUuid();
 	var paramsForm = {
+		id: appRun.kvs.admin.pages_form.formId,
 		div: 'admin_pages_form',
 		css: 'form-admin',
+		exec: 'appAdminPagesOnLoad',
 		fields: {
-			name: {
-				type: 'INPUT',
-				order: 10,
-				cssField: 'form-admin-div',
-				cssInput: 'form-admin-input',
-				attributes: {type: 'text', placeholder: _("Page name"), name:'name'},
-				validator: {
-					enabled: true,
-					validate: 'notempty',
-					error: _('Page name cannot be empty.')
-				}
-			},
-			parent: {
+			language: {
 				type: 'SELECT',
-				order: 20,
-				label: _("Parent: "),
+				order: 10,
+				label: _("Language: "),
 				cssField: 'form-admin-div',
 				cssInput: 'form-admin-input',
-				attributes: {name:'parent'},
+				attributes: {name:'language', id: appRun.kvs.admin.pages_form.fieldLanguage},
 				extra: {
 					options: [],
 				},
+				onChange: 'appAdminPagesOnChangeLanguage',
+			},
+			title: {
+				type: 'INPUT',
+				order: 20,
+				cssField: 'form-admin-div',
+				cssInput: 'form-admin-input',
+				attributes: {type: 'text', placeholder: _("Page title"), name:'title', id: appRun.kvs.admin.pages_form.fieldTitle},
+				validator: {
+					enabled: true,
+					validate: 'notempty',
+					error: _('Page title cannot be empty.')
+				},
+				extra: {},
+			},
+			content: {
+				type: 'TEXTAREA',
+				order: 30,
+				cssField: 'form-admin-div',
+				cssInput: 'form-admin-input',
+				attributes: {name:'content', rows:4, cols:40, id: appRun.kvs.admin.pages_form.fieldContent},
+				extra: {
+					text: _('Enter your page content here.'),
+				},
+				validator: {
+					enabled: true,
+					validate: 'notempty',
+					error: _('Page content cannot be empty.')
+				}
 			},
 			submit: {
 				type: 'BUTTON',
 				cssField: 'form-admin-div',
 				cssInput: 'form-admin-button',
 				order: 90,
-				extra: {text:_('Create'), name: 'submit', action: 'submit'}
+				extra: {text:_('Edit'), name: 'submit', action: 'submit'}
 			}
 		}
 	};
 
-	// Table definition (only header, without rows added)
-	var paramsTable = {
-		div: 'admin_pages_table',
-		css: 'tbl-admin',
-		sortControls: {			// We use the built-in font for sort control. See README for other options.
-			sortAsc: 'guido',
-			sortDesc: 'guido',
-			sortedAsc: 'guido',
-			sortedDesc: 'guido',
-		},
-		page: 25,
-		pageControls: {
-			position: ['bottom'],
-			align: ['right'],
-			css: 'page',
-		},
-		header: {
-			css: 'th',
-			cells: [
-				{sort: true, content: _('Name')},
-				{content: ' '},
-				{content: ' '},
-				{content: ' '},
-				{content: ' '},
-			]
-		},
-		rows: []
-	};
-
 	var jqXHR = $.ajax({
 		type: 'GET',
-		url: appConf.api.url + '/admin_pages',
+		url: appConf.api.url + '/admin_languages',
 		beforeSend: function (request) {
 			appUtilAuthHeader(request);
 			appUtilSpinnerShow();
 		},
 	})
-	.done(function(dataIn) {
+	.done(function(data) {
 		// Hide the spinner
 		appUtilSpinnerHide();
 
-		var data = appAdminPagesSort(dataIn);
-
-		// Populate the table, row by row
+		// Populate drop-down
 		for (var i=0; i<data.length; i++) {
-			// Prepare form drop-down
-			var option = {
-				value:data[i].id, 
-				text: data[i].name,
-			};
-			paramsForm.fields.parent.extra.options.push(option);
-
-			// Skip the first row (to level) from the table
-			if (i == 0)
-				continue;
-
-			// Prepare table row
-			var row = {
-				cells: [],
-			};
-
-			var cellName = {
-				content: data[i].name,
-			};
-			row.cells.push(cellName);
-
-			// Up arrow
-			var cellUp = {
-				content: (data[i].showUp) ? "<a href=javascript:void(0); onClick=appAdminPagesMove(" + data[i].id + ",'up');><img src='#' class=up.png title='" + _("Move up") + "'></a>" :""
-			};
-			row.cells.push(cellUp);
-
-			// Down arrow
-			var cellDown = {
-				content: (data[i].showDown) ? "<a href=javascript:void(0); onClick=appAdminPagesMove(" + data[i].id + ",'down');><img src='#' class=down.png title='" + _("Move down") + "'></a>" : ""
-			};
-			row.cells.push(cellDown);
-
-			var cellContent = {
-				content: "<a href=javascript:void(0); onClick=appAdminPagesEdit(" + data[i].id + ");><img src='#' class=content.png title='" + _("Delete") + "'></a>",
-			};
-			row.cells.push(cellContent);
-
-			var cellDelete = {
-				content: "<a href=javascript:void(0); onClick=appAdminPagesDelete(" + data[i].id + ");><img src='#' class=del.png title='" + _("Edit") + "'></a>",
-			};
-			row.cells.push(cellDelete);
-
-			paramsTable.rows.push(row);
+			if (data[i].status == 'active') {
+				var option = {
+					value:data[i].id, 
+					text: data[i].name_en + ' / ' + data[i].name ,
+				};
+				paramsForm.fields.language.extra.options.push(option);
+			}
 		}
 
 		// Show new entry form
@@ -142,8 +98,11 @@ function appLoadTemplate_admin_pages() {
 				return;
 			}
 
+			// Add the page ID
+			result.navigation = appRun.kvs.admin.navigation;
+
 			var jqXHR = $.ajax({
-				type: 'POST',
+				type: 'PUT',
 				url: appConf.api.url + '/admin_pages',
 				data: {q: JSON.stringify(result)},
 				beforeSend: function (request) {
@@ -151,42 +110,25 @@ function appLoadTemplate_admin_pages() {
 					appUtilSpinnerShow();
 				},
 			})
-			.done(function() {
+			.done(function(data) {
 				// Hide the spinner
 				appUtilSpinnerHide();
 
 				// Reload page
-				appLoadTemplate_admin_pages();
+				guidoLoadSection('navigation');
 		 	})
 			.fail(function() {
 				// Call the error handler
-				appUtilErrorHandler(jqXHR.status, _("Error creating page!"));
+				appUtilErrorHandler(jqXHR.status, _("Error editing page!"));
 			})
 		});
-
-		// Show table with pages or display text no entries were found
-		if (data.length > 1)
-			var t = new guidoTable(paramsTable, function(){
-				// Load all images (images will be sought by class; class name should match image name)
-				guidoRenderImages();
-			});
-		else {
-			var el = document.getElementById("admin_pages_table");
-			if (el)
-				el.innerHTML = "<p>" + _("No pages found. Use the form above to create one.") + "</p>";
-		}
 	})
 	.fail(function() {
 		// Call the error handler
-		appUtilErrorHandler(jqXHR.status, _("Error getting pages!"));
+		appUtilErrorHandler(jqXHR.status, _("Error getting page!"));
 	});
 }
 
-// Switch to page editing keeping the ID of the page
-function appAdminPagesEdit(id) {
-	appRun.kvs.admin.page = id;
-	guidoLoadSection('page');
-}
 
 function appAdminPagesDelete(id) {
 	// Verify we really want to delete the image
@@ -210,82 +152,43 @@ function appAdminPagesDelete(id) {
 	});
 }
 
+// First load only function for initial language
+function appAdminPagesOnLoad() {
+	if (appRun.kvs.admin.pages_form.already_loaded)
+		return;
 
-function appAdminPagesMove(id, direction) {
-	// Call the API to delete the file
+	appRun.kvs.admin.pages_form.already_loaded = true;
+	appAdminPagesOnChangeLanguage();
+}
+
+// On change of language drop down, change the value of the title and content
+function appAdminPagesOnChangeLanguage() {
+	var elementLanguage = document.getElementById(appRun.kvs.admin.pages_form.fieldLanguage);
+	var language = elementLanguage.options[elementLanguage.selectedIndex].value;
+
+	// Call the API to get the page
 	var jqXHR = $.ajax({
-		type: 'PUT',
+		type: 'GET',
 		url: appConf.api.url + '/admin_pages',
-		data: {q: JSON.stringify({id: id, move: direction})},
+		data: {q: JSON.stringify({language: language, page: appRun.kvs.admin.page})},
 		beforeSend: function (request) {appUtilAuthHeader(request);},
 	})
 	.done(function(data) {
-		// Reload page
-		appLoadTemplate_admin_pages();
+		// Find which array element this value belongs to
+		var index = 0;
+		for (index=0; index < data.length; index++ ) {
+			if (data[index].language_id == language)
+				break;
+		}
+
+		var elementTitle = document.getElementById(appRun.kvs.admin.pages_form.fieldTitle);
+		elementTitle.value = data[index].title;
+
+		var elementContent = document.getElementById(appRun.kvs.admin.pages_form.fieldTitle);
+		elementContent.value = data[index].content;
  	})
 	.fail(function(jqXHR) {
-		appUtilErrorHandler(jqXHR.status, "Error moving page.");
+		appUtilErrorHandler(jqXHR.status, "Error getting page.");
 	});
-}
-
-// Recursively find child nodes
-function appAdminPagesFindNext(dataIn, parent, name) {
-	var ret = [];
-
-	for (var i=0; i<dataIn.length; i++) {
-		if (dataIn[i].parent == parent) {
-			dataIn[i].name = name + ' -> ' + dataIn[i].name;
-			ret.push(dataIn[i]);
-
-			var res = appAdminPagesFindNext(dataIn, dataIn[i].id, dataIn[i].name);
-			for (var j=0; j<res.length; j++)
-				ret.push(res[j]);
-		}
-	}
-
-	return ret;
-}
-
-
-// Sort the entries in a hierarchial way
-function appAdminPagesSort(dataIn) {
-	var ret = [];
-	// Index zero is the top-level (invisible in rendering)
-	ret[0] = dataIn[0];
-
-	/*
-	Step 1: re-order the items and set path - from (parent, priority) to:
-	- a
-	- a / b
-	- a / b / c
-	- a / d
-	- a / d / e
-	*/
-	for (var i=0; i<dataIn.length; i++) {
-		if (dataIn[i].parent == 1) {
-			//dataIn[i].name = '/ ' + dataIn[i].name;
-			ret.push(dataIn[i]);
-			var res = appAdminPagesFindNext(dataIn, dataIn[i].id, dataIn[i].name);
-			for (var j=0; j<res.length; j++)
-				ret.push(res[j]);
-		}
-	}
-
-	// Step 2: Set flags for down & up buttons
-	for (var i=0; i<dataIn.length; i++) {
-		for (var j=i+1; j<dataIn.length; j++) {
-			if (dataIn[j].parent == dataIn[i].parent)
-				dataIn[i].showDown = true;
-		}
-	}
-
-	for (var i=dataIn.length-1; i>=1; i--) {
-		for (var j=i-1; j>=0; j--) {
-			if (dataIn[j].parent == dataIn[i].parent)
-				dataIn[i].showUp = true;
-		}
-	}
-
-	return ret;
-}
+};
 

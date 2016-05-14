@@ -16,6 +16,152 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `galleries`
+--
+
+DROP TABLE IF EXISTS `galleries`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `galleries` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `style_id` int(11) DEFAULT NULL,
+  `status` enum('active','deleted') DEFAULT 'active',
+  `added_on` datetime DEFAULT NULL,
+  `added_by` int(11) DEFAULT NULL,
+  `deleted_on` datetime DEFAULT NULL,
+  `deleted_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `galleries`
+--
+
+LOCK TABLES `galleries` WRITE;
+/*!40000 ALTER TABLE `galleries` DISABLE KEYS */;
+/*!40000 ALTER TABLE `galleries` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `gallery_images`
+--
+
+DROP TABLE IF EXISTS `gallery_images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `gallery_images` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `gallery_id` int(11) DEFAULT NULL,
+  `image_id` int(11) DEFAULT NULL,
+  `status` enum('active','deleted') DEFAULT 'active',
+  `added_on` datetime DEFAULT NULL,
+  `added_by` int(11) DEFAULT NULL,
+  `deleted_on` datetime DEFAULT NULL,
+  `deleted_by` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `gallery_images`
+--
+
+LOCK TABLES `gallery_images` WRITE;
+/*!40000 ALTER TABLE `gallery_images` DISABLE KEYS */;
+/*!40000 ALTER TABLE `gallery_images` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `gallery_styles`
+--
+
+DROP TABLE IF EXISTS `gallery_styles`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `gallery_styles` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) DEFAULT NULL,
+  `image_width` int(11) DEFAULT NULL,
+  `image_height` int(11) DEFAULT NULL,
+  `thumb_width` int(11) DEFAULT NULL,
+  `thumb_height` int(11) DEFAULT NULL,
+  `status` enum('active','inactive') DEFAULT 'active',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `gallery_styles`
+--
+
+LOCK TABLES `gallery_styles` WRITE;
+/*!40000 ALTER TABLE `gallery_styles` DISABLE KEYS */;
+INSERT INTO `gallery_styles` VALUES (1,'Default',NULL,NULL,NULL,NULL,'active');
+/*!40000 ALTER TABLE `gallery_styles` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `image_notes`
+--
+
+DROP TABLE IF EXISTS `image_notes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `image_notes` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `image_id` int(11) DEFAULT NULL,
+  `language_id` int(11) DEFAULT NULL,
+  `note` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `image_id` (`image_id`),
+  KEY `language_id` (`language_id`),
+  KEY `combo1` (`image_id`,`language_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `image_notes`
+--
+
+LOCK TABLES `image_notes` WRITE;
+/*!40000 ALTER TABLE `image_notes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `image_notes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `images`
+--
+
+DROP TABLE IF EXISTS `images`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `images` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `path` varchar(255) DEFAULT NULL,
+  `status` enum('active','replaced','deleted') DEFAULT 'active',
+  `added_on` datetime DEFAULT NULL,
+  `added_by` int(11) DEFAULT '0',
+  `deleted_on` datetime DEFAULT NULL,
+  `deleted_by` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `status` (`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `images`
+--
+
+LOCK TABLES `images` WRITE;
+/*!40000 ALTER TABLE `images` DISABLE KEYS */;
+/*!40000 ALTER TABLE `images` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `languages`
 --
 
@@ -45,13 +191,13 @@ INSERT INTO `languages` VALUES (1,'Afrikaans','Afrikaans','af_ZA','inactive'),(2
 UNLOCK TABLES;
 
 --
--- Table structure for table `pages`
+-- Table structure for table `navigation`
 --
 
-DROP TABLE IF EXISTS `pages`;
+DROP TABLE IF EXISTS `navigation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pages` (
+CREATE TABLE `navigation` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `parent` int(11) DEFAULT '0',
   `position` int(11) DEFAULT '0',
@@ -62,30 +208,31 @@ CREATE TABLE `pages` (
   `deleted_on` datetime DEFAULT NULL,
   `deleted_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `combo1` (`parent`,`position`)
+  KEY `combo1` (`parent`,`position`),
+  KEY `status` (`status`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `pages`
+-- Dumping data for table `navigation`
 --
 
-LOCK TABLES `pages` WRITE;
-/*!40000 ALTER TABLE `pages` DISABLE KEYS */;
-INSERT INTO `pages` VALUES (1,0,0,'Top Level','active',NULL,NULL,NULL,NULL);
-/*!40000 ALTER TABLE `pages` ENABLE KEYS */;
+LOCK TABLES `navigation` WRITE;
+/*!40000 ALTER TABLE `navigation` DISABLE KEYS */;
+INSERT INTO `navigation` VALUES (1,0,0,'Top Level','active',NULL,NULL,NULL,NULL);
+/*!40000 ALTER TABLE `navigation` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `pages_lang`
+-- Table structure for table `pages`
 --
 
-DROP TABLE IF EXISTS `pages_lang`;
+DROP TABLE IF EXISTS `pages`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `pages_lang` (
+CREATE TABLE `pages` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `page_id` int(11) DEFAULT NULL,
+  `navigation_id` int(11) DEFAULT NULL,
   `language_id` int(11) DEFAULT NULL,
   `title` varchar(255) DEFAULT NULL,
   `content` text,
@@ -94,17 +241,17 @@ CREATE TABLE `pages_lang` (
   `updated_on` datetime DEFAULT NULL,
   `updated_by` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `combo1` (`page_id`,`language_id`)
+  UNIQUE KEY `combo1` (`navigation_id`,`language_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `pages_lang`
+-- Dumping data for table `pages`
 --
 
-LOCK TABLES `pages_lang` WRITE;
-/*!40000 ALTER TABLE `pages_lang` DISABLE KEYS */;
-/*!40000 ALTER TABLE `pages_lang` ENABLE KEYS */;
+LOCK TABLES `pages` WRITE;
+/*!40000 ALTER TABLE `pages` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pages` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -157,7 +304,7 @@ CREATE TABLE `uploads` (
   PRIMARY KEY (`id`),
   KEY `gid` (`gid`),
   KEY `status` (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -236,4 +383,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-13  0:49:23
+-- Dump completed on 2016-05-15  1:59:56

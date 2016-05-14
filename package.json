@@ -20,7 +20,8 @@
 	},
 	"dependencies": {
 		"mysql": "2.8.x",
-		"formidable": "1.0.x"
+		"formidable": "1.0.x",
+		"node-gd": "1.2.x"
 	},
 	"devDependencies": {}
 }
