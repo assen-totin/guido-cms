@@ -6,12 +6,10 @@ var init = function(params, callback) {
 	var sqlClient = params.clients.sqlClient;
 	var logger = params.clients.logger;
 
-	var userId;
-
 	switch(params.method) {
 		case 'GET':
 			// Get galleries
-			var q = "SELECT * FROM galleries WHERE status='active';
+			var q = "SELECT * FROM galleries WHERE status='active'";
 
 			sqlClient.query(q, function(error, sqlRows) {
 				if (error) {
@@ -38,19 +36,39 @@ var init = function(params, callback) {
 					return;
 				}
 
-				// Create directory for the gallery
-				pathDest = params.documentRoot + '/galleries/' + utilsAdmin.sanitise(params.query.path, 'dir');
+				// Get gallery ID to include in the path (to make sure it is unique)
+				q = "SELECT * FROM galleries WHERE name=" + sqlClient.escape(params.query.name) + " ORDER BY id DESC LIMIT 1";
+				sqlClient.query(q, function(error, sqlRows2) {
+					if (error) {
+						callback({code:500, msg:"Unable to query database", error:q + "\n" + error});
+						return;
+					}
 
-				try {
-					stat = fs.lstatSync(pathDest);
-					logger.debug('Got stat data for file ' + pathDest);
-				}
-				catch (e) {
-					// Create the directory
-					fs.mkdirSync(pathDest);
-				}
+					// Create directory for the gallery
+					var pathDb = '/galleries/' + sqlRows2[0].id + '_' + utilsAdmin.sanitise(params.query.name, 'dir');
+					var pathFs = params.documentRoot + pathDb;
 
-				callback({code:200, msg: "OK"});
+					try {
+						stat = fs.lstatSync(pathFs);
+						logger.debug('Got stat data for file ' + pathFs);
+					}
+					catch (e) {
+						// Create the directory
+						fs.mkdirSync(pathFs);
+						fs.mkdirSync(pathFs + '/thumbnails');
+					}
+
+					// Set gallery path as we now know the gallery ID
+					q = "UPDATE galleries SET path=" + sqlClient.escape(pathDb) + " WHERE id=" + sqlRows2[0].id;
+					sqlClient.query(q, function(error, sqlRows2) {
+						if (error) {
+							callback({code:500, msg:"Unable to query database", error:q + "\n" + error});
+							return;
+						}
+
+						callback({code:200, msg: "OK"});
+					});	
+				});		
 			});
 			return;
 

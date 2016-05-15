@@ -1,0 +1,7 @@
+<div>
+	<p class=section_title>Galleries</p>
+	<p><b>Add new gallery:</b></p>
+	<div id="admin_galleries_form"></div>
+	<p><b>Existing galleries:</b></p>
+	<div id="admin_galleries_table"></div>
+</div>

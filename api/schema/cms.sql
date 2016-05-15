@@ -25,6 +25,7 @@ DROP TABLE IF EXISTS `galleries`;
 CREATE TABLE `galleries` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
+  `path` varchar(255) DEFAULT NULL,
   `style_id` int(11) DEFAULT NULL,
   `status` enum('active','deleted') DEFAULT 'active',
   `added_on` datetime DEFAULT NULL,
@@ -55,7 +56,7 @@ DROP TABLE IF EXISTS `gallery_images`;
 CREATE TABLE `gallery_images` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `gallery_id` int(11) DEFAULT NULL,
-  `image_id` int(11) DEFAULT NULL,
+  `path` varchar(255) DEFAULT NULL,
   `status` enum('active','deleted') DEFAULT 'active',
   `added_on` datetime DEFAULT NULL,
   `added_by` int(11) DEFAULT NULL,
@@ -130,35 +131,6 @@ CREATE TABLE `image_notes` (
 LOCK TABLES `image_notes` WRITE;
 /*!40000 ALTER TABLE `image_notes` DISABLE KEYS */;
 /*!40000 ALTER TABLE `image_notes` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `images`
---
-
-DROP TABLE IF EXISTS `images`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `images` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `path` varchar(255) DEFAULT NULL,
-  `status` enum('active','replaced','deleted') DEFAULT 'active',
-  `added_on` datetime DEFAULT NULL,
-  `added_by` int(11) DEFAULT '0',
-  `deleted_on` datetime DEFAULT NULL,
-  `deleted_by` int(11) DEFAULT '0',
-  PRIMARY KEY (`id`),
-  KEY `status` (`status`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `images`
---
-
-LOCK TABLES `images` WRITE;
-/*!40000 ALTER TABLE `images` DISABLE KEYS */;
-/*!40000 ALTER TABLE `images` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -271,7 +243,7 @@ CREATE TABLE `sessions` (
   KEY `session_id` (`session_id`),
   KEY `closed_on` (`closed_on`),
   KEY `user_id` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -280,7 +252,7 @@ CREATE TABLE `sessions` (
 
 LOCK TABLES `sessions` WRITE;
 /*!40000 ALTER TABLE `sessions` DISABLE KEYS */;
-INSERT INTO `sessions` VALUES (1,1,'cad84d47-b737-499c-80fd-b4af3054a716','2016-05-07 21:26:37','2016-05-12 23:15:20'),(2,1,'9ad54265-7338-4c4f-bb94-bcfbaa509e72','2016-05-12 23:10:46','2016-05-12 23:15:20'),(3,1,'921b7600-201d-4692-80d2-d2af36f768a5','2016-05-12 23:15:20',NULL);
+INSERT INTO `sessions` VALUES (1,1,'cad84d47-b737-499c-80fd-b4af3054a716','2016-05-07 21:26:37','2016-05-15 16:49:46'),(2,1,'9ad54265-7338-4c4f-bb94-bcfbaa509e72','2016-05-12 23:10:46','2016-05-15 16:49:46'),(3,1,'921b7600-201d-4692-80d2-d2af36f768a5','2016-05-12 23:15:20','2016-05-15 16:49:46'),(4,1,'7bc9b06d-7c59-470c-88da-1093e12b0a99','2016-05-15 16:49:46',NULL);
 /*!40000 ALTER TABLE `sessions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -383,4 +355,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-05-15  1:59:56
+-- Dump completed on 2016-05-15 19:28:15

@@ -11,6 +11,8 @@
 	<li><a href=javascript:void(0) onClick="guidoLoadSection('upload');">Upload</a></li>
 	</ul>
 
+	<p><a href=javascript:void(0) onClick="guidoLoadSection('galleries');">Galleries</a></p>
+
 	<p><a href=javascript:void(0) onClick="guidoLoadSection('languages');">Languages</a></p>
 
 	<p><a href=javascript:void(0) onClick="appAdminLogout()">Log out</a></p>

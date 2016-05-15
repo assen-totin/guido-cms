@@ -7,6 +7,7 @@ admin/admin_upload.template
 admin/admin_uploads.template
 admin/admin_page.template
 admin/admin_pages.template
+admin/admin_galleries.template
 admin/admin_languages.template
 site/menu1.template
 site/main1.template

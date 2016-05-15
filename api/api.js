@@ -34,6 +34,25 @@ var parseJson = function(input) {
 	}
 };
 
+// Process query params (if param is a JSON, disassemble it; else use as givem)
+var processQuery = function(query) {
+	var ret = {};
+
+	var keys = Object.keys(query);
+	for (var i=0; i<keys.length; i++) {
+		var pj = parseJson(query[keys[i]]);
+		if (pj) {
+			var keys2 = Object.keys(pj);
+			for (var j=0; j<keys2.length; j++)
+				ret[keys2[j]] = pj[keys2[j]];
+		}
+		else
+			ret[keys[i]] = query[keys[i]];
+	}
+
+	return ret;
+}
+
 // Invoke the endpoint
 var invoke = function(params, callback) {
 	var endpoint = require(params.endpoint);
@@ -75,11 +94,7 @@ var init = function(params, callback) {
 
 			// For GET, extract params directly
 			if (params.method == 'GET') {
-				var keys = Object.keys(params.urlParts.query);
-				for (var i=0; i<keys.length; i++) {
-					var pj = parseJson(params.urlParts.query[keys[i]]);
-					params.query = (pj) ? pj : query[keys[i]];
-				}
+				params.query = processQuery(params.urlParts.query);
 
 				invoke(params, function(result2){
 					callback(result2);
@@ -97,16 +112,9 @@ var init = function(params, callback) {
 						return;
 					}
 
-					if (! params.query)
-						params.query = {};
-
-					var keys = Object.keys(query);
-					for (var i=0; i<keys.length; i++) {
-						var pj = parseJson(query[keys[i]]);
-						params.query = (pj) ? pj : query[keys[i]];
-					}
-
+					params.query = processQuery(query);
 					params.upload = upload;
+
 					invoke(params, function(result2){
 						callback(result2);
 					});

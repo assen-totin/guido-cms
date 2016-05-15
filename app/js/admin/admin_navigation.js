@@ -122,12 +122,12 @@ function appLoadTemplate_admin_navigation() {
 			row.cells.push(cellDown);
 
 			var cellContent = {
-				content: "<a href=javascript:void(0); onClick=appAdminNavigationEdit(" + data[i].id + ");><img src='#' class=content.png title='" + _("Delete") + "'></a>",
+				content: "<a href=javascript:void(0); onClick=appAdminNavigationEdit(" + data[i].id + ");><img src='#' class=content.png title='" + _("Edit") + "'></a>",
 			};
 			row.cells.push(cellContent);
 
 			var cellDelete = {
-				content: "<a href=javascript:void(0); onClick=appAdminNavigationDelete(" + data[i].id + ");><img src='#' class=del.png title='" + _("Edit") + "'></a>",
+				content: "<a href=javascript:void(0); onClick=appAdminNavigationDelete(" + data[i].id + ");><img src='#' class=del.png title='" + _("Delete") + "'></a>",
 			};
 			row.cells.push(cellDelete);
 

@@ -5,7 +5,8 @@ admin/admin_login.js
 admin/admin_upload.js
 admin/admin_uploads.js
 admin/admin_pages.js
-admin/admin_page.js
+admin/admin_navigation.js
+admin/admin_galleries.js
 admin/admin_languages.js
 site/menu1.js
 site/main1.js

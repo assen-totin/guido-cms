@@ -43,6 +43,10 @@ function appLoadTemplate_admin_upload() {
 		if (appRun.kvs.admin.upload_id)
 			result.id = parseInt(appRun.kvs.admin.upload_id, 10);
 
+		// If we're uploadiog to a gallery, add its ID
+		if (appRun.kvs.admin.gallery)
+			result.gallery = parseInt(appRun.kvs.admin.gallery);
+
 		// Populate a FormData object (used to send AJAX with multipart/form-data)
 		var formData = new FormData();
 		var keys = Object.keys(result);

@@ -97,6 +97,10 @@ var guidoConf = {
 				title: 'Admin :: Page',
 				templates: ['admin_root', 'admin_menu', 'admin_pages']
 			},
+			galleries: {
+				title: 'Admin :: Galleries',
+				templates: ['admin_root', 'admin_menu', 'admin_galleries']
+			},
 		},
 		site: {
 			_section: 'example1',

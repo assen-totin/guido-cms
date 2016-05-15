@@ -1,14 +1,14 @@
 REQUIREMENTS
 ============
 
-Guido comes with everything it needs and should work out-of-the-box.
+Guido CMS comes with everything it needs and should work out-of-the-box.
 
 
 INSTALLATION
 ============
 
 - Get the sources 
-- The 'guido' directory should be inside your DocumentRoot.
-- Edit the guido.conf.js to suit your needs. 
-- Serve with your favourite web server
+- Get the required system libraries. You need libgd and its development files.
+- Get the requried node modules (npm install)
+- Run the web server with your favourite supervisor (node guido/bin/webserver.js)
 
